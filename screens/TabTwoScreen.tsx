@@ -21,8 +21,8 @@ export default function TabOneScreen({ provider }) {
   });
   return (
     <View style={styles.container}>
-      <MapView
-        provider={provider}
+      <MapView>
+        string provider={provider}
         style={styles.map}
         initialRegion={region}
         zoomTapEnabled={false}
@@ -34,5 +34,10 @@ export default function TabOneScreen({ provider }) {
 const styles = StyleSheet.create({
   map: {
     ...StyleSheet.absoluteFillObject,
+  },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    backgroundColor: 'white',
   },
 });
