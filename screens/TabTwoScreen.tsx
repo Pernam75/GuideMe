@@ -1,32 +1,38 @@
-import * as React from 'react';
-import { StyleSheet } from 'react-native';
+// TabOnScreen.tsx
+import React, { useState } from 'react';
+import { StyleSheet, Dimensions } from 'react-native';
 
-import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
+import { View } from '../components/Themed';
+import MapView from 'react-native-maps';
 
-export default function TabTwoScreen() {
+const { width, height } = Dimensions.get('window');
+const ASPECT_RATIO = width / height;
+const LATITUDE = 29.9990674;
+const LONGITUDE = -90.0852767;
+const LATITUDE_DELTA = 0.0922;
+const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+
+export default function TabOneScreen({ provider }) {
+  const [region, setRegion] = useState({
+    latitude: LATITUDE,    // initial location latitude
+    longitude: LONGITUDE,  // initial location longitude
+    latitudeDelta: LATITUDE_DELTA,
+    longitudeDelta: LONGITUDE_DELTA,
+  });
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tab Two</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/TabTwoScreen.tsx" />
+      <MapView
+        provider={provider}
+        style={styles.map}
+        initialRegion={region}
+        zoomTapEnabled={false}
+      </MapView>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
+  map: {
+    ...StyleSheet.absoluteFillObject,
   },
 });
