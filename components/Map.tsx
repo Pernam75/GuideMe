@@ -14,16 +14,18 @@ class Map extends React.Component {
 
   async getLocationAsync() {
     const status  = Location.requestForegroundPermissionsAsync()
-    if (status === 'granted') {
+    if (status.toString() === 'granted') {
      const location = await Location.getCurrentPositionAsync({});
     }
   }
 
   componentDidMount() {
     Location.requestForegroundPermissionsAsync()
-    const initialposition = await Location.getCurrentPositionAsync({ accuracy: Accuracy.Low })
-    var lat = initialposition.coords.latitude
-    var long = initialposition.coords.longitude
+    async function testfunction(){
+      const initialposition = await Location.getCurrentPositionAsync({ accuracy: Accuracy.Low })
+      let lat = initialposition.coords.latitude
+      let long = initialposition.coords.longitude
+    }
   }
 
 
