@@ -1,9 +1,9 @@
 import React from 'react';
 import { Platform, StyleSheet, Text, View, Alert } from 'react-native';
-import MapView, { Circle, PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { Circle, Polyline, PROVIDER_GOOGLE } from 'react-native-maps';
 import { Accuracy } from 'expo-location';
 import * as Location from 'expo-location';
-
+import Openrouteservice from 'openrouteservice-js';
 
 
 class Map extends React.Component<any, any, any> {
@@ -15,6 +15,7 @@ class Map extends React.Component<any, any, any> {
     this.state = {
       lat: 0,
       lon: 0,
+      path: [],
     }
   }
 
@@ -37,6 +38,35 @@ class Map extends React.Component<any, any, any> {
     initToCurrLocation()
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.radius !== prevProps.radius) {
+      this.computePath('48.791855', '2.331433');
+    }
+  }
+
+  computePath(latitude: string, longitude: string) {
+    let orsDirections = new Openrouteservice.Directions({ api_key: "5b3ce3597851110001cf62488e507e8f47604f66ae8ba7a411f9f8bd"});
+    orsDirections.calculate({
+      coordinates: [[this.state.lon, this.state.lat], [longitude, latitude]],
+      profile: "foot-walking",
+      preference: 'shortest',
+      // extra_info: ["waytype", "steepness"],
+      format: "geojson",
+      api_version: 'v2',
+    })
+    .then((res: any) => {
+        // Add your own result handling here
+        if (res?.features?.[0]?.geometry?.coordinates) {
+          this.setState({
+            path: res
+                    .features[0].geometry.coordinates
+                    .map((point: any) => ({latitude: point[1], longitude: point[0]}))
+          })
+        }
+      })
+    .catch((err: any) => console.error(err));
+  }
+
 
   render() {
     return (
@@ -50,6 +80,14 @@ class Map extends React.Component<any, any, any> {
             fillColor="rgba(255, 0, 0, 0.15)"
             radius={this.props.radius}
             center={{latitude: this.state.lat, longitude: this.state.lon}}
+          />
+        )}
+        {this.state.path.length > 0 && (
+          <Polyline
+            strokeColor="#FF0000"
+            strokeWidth={6}
+            lineDashPattern={[0]}
+            coordinates={this.state.path}
           />
         )}
       </MapView>
