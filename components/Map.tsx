@@ -1,12 +1,14 @@
 import React from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import { Platform, StyleSheet, Text, View, Alert } from 'react-native';
+import MapView, { Circle, PROVIDER_GOOGLE } from 'react-native-maps';
 import { Accuracy } from 'expo-location';
 import * as Location from 'expo-location';
 
 
 
 class Map extends React.Component<any, any, any> {
+  mapRef: any;
+
   constructor(props) {
     super(props);
 
@@ -17,29 +19,40 @@ class Map extends React.Component<any, any, any> {
   }
 
   componentDidMount() {
-    const testfunction = async() => {
-      const status  = Location.requestForegroundPermissionsAsync()
+    const initToCurrLocation = async() => {
+      const {status}  = await Location.requestForegroundPermissionsAsync()
+      if (status !== 'granted') {
+        Alert.alert('Activer la localisation', 'Pour profiter de toutes les fonctionnalités de GuideMe, veuillez activer la localisation.')
+        return;
+      }
       const initialposition = await Location.getCurrentPositionAsync({ accuracy: Accuracy.Low })
-      let lat = initialposition.coords.latitude
-      let long = initialposition.coords.longitude
-      this.setState({lat: lat, lon: long})
+      this.setState({lat: initialposition.coords.latitude, lon: initialposition.coords.longitude})
+      this.mapRef?.animateToRegion({
+        latitude: initialposition.coords.latitude,
+        longitude: initialposition.coords.longitude,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421
+      }, 1000)
     }
-    testfunction()
+    initToCurrLocation()
   }
 
 
   render() {
     return (
       <MapView
-         style={{ width: "100%", height: "80%" }}
-         provider={PROVIDER_GOOGLE}
-         showsUserLocation
-         initialRegion={{
-         latitude: this.state.lat,
-         longitude: this.state.lon,
-         latitudeDelta: 0.0922,
-         longitudeDelta: 0.0421}}
-      />
+        ref={ref => { this.mapRef = ref }}
+        style={{ width: "100%", height: "80%" }}
+        provider={PROVIDER_GOOGLE}
+        showsUserLocation>
+        {this.props.radius > 0 && (
+          <Circle
+            fillColor="rgba(255, 0, 0, 0.15)"
+            radius={this.props.radius}
+            center={{latitude: this.state.lat, longitude: this.state.lon}}
+          />
+        )}
+      </MapView>
     );
   }
 }

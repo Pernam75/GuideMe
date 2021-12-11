@@ -5,11 +5,12 @@ import Search from '../components/Search';
 import Map from '../components/Map';
 
 export default function TabTwoScreen() {
+  const [radius, setRadius] = React.useState(0)
+
   return (
     <View style={styles.container}>
-      <Text>GuideMe</Text>
-      <Search/>
-      <Map/>
+      <Search onValidate={(val: number) => setRadius(val)} />
+      <Map radius={radius} />
     </View>
   );
 }
