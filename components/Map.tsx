@@ -1,6 +1,6 @@
 import React from 'react';
 import { Platform, StyleSheet, Text, View, Alert } from 'react-native';
-import MapView, { Circle, Polyline, PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { Circle, Polyline, Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { Accuracy } from 'expo-location';
 import * as Location from 'expo-location';
 import Openrouteservice from 'openrouteservice-js';
@@ -15,6 +15,8 @@ class Map extends React.Component<any, any, any> {
     this.state = {
       lat: 0,
       lon: 0,
+      latMarker : 0,
+      longMarker: 0, 
       path: [],
     }
   }
@@ -35,6 +37,7 @@ class Map extends React.Component<any, any, any> {
         longitudeDelta: 0.0421
       }, 1000)
     }
+    this.setState({latMarker : 48.7921098, longMarker :2.3633048})
     initToCurrLocation()
   }
 
@@ -90,6 +93,11 @@ class Map extends React.Component<any, any, any> {
             coordinates={this.state.path}
           />
         )}
+        <Marker
+            coordinate={{latitude: this.state.latMarker, longitude: this.state.longMarker}}
+            title={"title"}
+            description={"description"}
+        />
       </MapView>
     );
   }
