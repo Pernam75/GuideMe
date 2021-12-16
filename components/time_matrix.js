@@ -11,8 +11,8 @@ request.setRequestHeader('Authorization', '5b3ce3597851110001cf62488e507e8f47604
 request.onreadystatechange = function () {
   if (this.readyState === 4) {
     console.log('Status:', this.status);
-    console.log('Headers:', this.getAllResponseHeaders());
-    console.log('Body:', this.responseText);
+    console.log('\n\nHeaders:', this.getAllResponseHeaders());
+    console.log('\n\nBody:', this.responseText);
   }
 };
 
