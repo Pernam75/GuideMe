@@ -27,6 +27,7 @@
     "expo-web-browser": "~9.2.0",
     "floyd-warshall": "^1.0.0",
     "gl-matrix": "^3.4.3",
+    "mathjs": "^10.0.0",
     "react": "16.13.1",
     "react-dom": "^16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
