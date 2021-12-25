@@ -4,7 +4,7 @@ import MapView, { Circle, Polyline, Marker, PROVIDER_GOOGLE } from 'react-native
 import { Accuracy } from 'expo-location';
 import * as Location from 'expo-location';
 import Openrouteservice from 'openrouteservice-js';
-
+import returnDictionary from './time_matrix';
 
 class Map extends React.Component<any, any, any> {
   mapRef: any;
@@ -22,6 +22,7 @@ class Map extends React.Component<any, any, any> {
   }
 
   componentDidMount() {
+    console.log(returnDictionary())
     const initToCurrLocation = async() => {
       const {status}  = await Location.requestForegroundPermissionsAsync()
       if (status !== 'granted') {
