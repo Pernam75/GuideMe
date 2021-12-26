@@ -36,7 +36,6 @@ for (let i = 0; i < bodyArray.locations.length; i++){
 export default function returnDictionary(){
   return monumentsMap;
 }
-console.log(monumentsMap)
 
 request.send(body);
 

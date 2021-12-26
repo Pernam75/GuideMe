@@ -14,15 +14,14 @@ class Map extends React.Component<any, any, any> {
 
     this.state = {
       lat: 0,
-      lon: 0,
-      latMarker : 0,
-      longMarker: 0, 
+      lon: 0, 
+      pathMarker: [],
       path: [],
     }
   }
 
   componentDidMount() {
-    console.log(returnDictionary())
+    let monuments = returnDictionary()
     const initToCurrLocation = async() => {
       const {status}  = await Location.requestForegroundPermissionsAsync()
       if (status !== 'granted') {
@@ -38,7 +37,9 @@ class Map extends React.Component<any, any, any> {
         longitudeDelta: 0.0421
       }, 1000)
     }
-    this.setState({latMarker : 48.7921098, longMarker :2.3633048})
+    this.setState({
+      pathMarker: Array.from(monuments.values()).map((monument: any) => ({name: monument[0], latitude: monument[2], longitude: monument[1]}))
+    })
     initToCurrLocation()
   }
 
@@ -94,11 +95,13 @@ class Map extends React.Component<any, any, any> {
             coordinates={this.state.path}
           />
         )}
-        <Marker
-            coordinate={{latitude: this.state.latMarker, longitude: this.state.longMarker}}
-            title={"title"}
-            description={"description"}
-        />
+        {this.state.pathMarker.map((marker: any) => (
+          <Marker 
+            key={marker.name}
+            coordinate={{latitude: marker.latitude, longitude: marker.longitude}}
+            title={marker.name}
+          />
+        ))}
       </MapView>
     );
   }
