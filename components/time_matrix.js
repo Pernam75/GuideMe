@@ -1,21 +1,35 @@
 const math = require('mathjs');
 const XMLHttpRequest = require('xhr2');
 
-const adress = require('./monuments.json');
+var adress = require('./monuments.json');
 
 export async function getMonuments() {
   allMonumentsMap = new Map();
+  /*
   for (let i = 0; i < adress.length; i++) {
     const coordonates = await getLocation(adress[i].Nom);
     allMonumentsMap.set(i , [adress[i].Nom, ...coordonates]);
+    let stringcoord = {
+      Nom : adress[i].Nom,
+      Ville : adress[i].Ville,
+      Latitude : coordonates[1],
+      Longitude : coordonates[0]
+    }
+    let jsonCoord = JSON.stringify(stringcoord);  
+    //adress[i].writeFile('./monuments.json', jsonCoord)
   }
+  */
+  for (let i = 0; i < adress.length; i++) {
+    allMonumentsMap.set(i , [adress[i].Nom, adress[i].Longitude, adress[i].Latitude]);
+    }
+  console.log(allMonumentsMap);
   return allMonumentsMap;
 }
 
 async function getLocation(name) {
   try {
     const res = await fetch(
-      'https://api.openrouteservice.org/geocode/search?api_key=5b3ce3597851110001cf62488e507e8f47604f66ae8ba7a411f9f8bd&text='+name+'&focus.point.lon=48.85967&focus.point.lat=2.34703&sources=openstreetmap&size=1&boundary.country=FR',
+      'https://api.openrouteservice.org/geocode/search?api_key=5b3ce3597851110001cf6248cd2222fda36d44e7bbe890f25103028c&text='+name+'&focus.point.lon=48.85967&focus.point.lat=2.34703&sources=openstreetmap&size=1&boundary.country=FR',
       {
         method: 'GET',
         headers: {'Accept': 'application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8'}
@@ -116,4 +130,38 @@ function totalTime(times) {
     min += 1;
   }
   return h+" heures et "+min+" minutes";
+}
+
+
+
+/* VARIABLES */
+var R = 6371 ; /* Radius of earth [km] */
+var rayon = 15; /* en km */
+var position = [48.78865493647841, 2.3638224559004315]; /* coordonnées Efrei Paris [latitude, longitude] */
+
+
+function radian(delta){
+    return delta * Math.PI / 180;
+}
+
+
+// code Kais
+function distance (lat1, long1, lat2, long2){ /* calcul de la distance avec la formule de haversine */
+    var delta_lat = radian(lat2 - lat1);
+    var delta_long = radian(long2 - long1);
+    var a = Math.pow(Math.sin(delta_lat / 2), 2) + Math.cos(radian(lat1)) * Math.cos(radian(lat2)) * Math.pow(Math.sin(delta_long/2), 2);
+    var c = 2 * Math.atan(Math.sqrt(a) / Math.sqrt(1-a));
+    var distance = R * c ;
+    /*console.log("a :", a, "c :", c);*/
+    return distance;
+}
+
+function monuments(position, rayon, csv_json){
+    var liste_monuments = [];
+    for (let i=1; i< csv_json.data.length; i++){
+        if (distance(position[0], position[1], csv_json.data[i][3], csv_json.data[i][4]) <= rayon){
+            liste_monuments[csv_json.data[i][2]] = { latitude : csv_json.data[i][3], longitude : csv_json.data[i][4] };
+        }
+    }
+    return liste_monuments;
 }
