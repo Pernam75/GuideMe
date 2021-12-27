@@ -4,7 +4,7 @@ import MapView, { Circle, Polyline, Marker, PROVIDER_GOOGLE } from 'react-native
 import { Accuracy } from 'expo-location';
 import * as Location from 'expo-location';
 import Openrouteservice from 'openrouteservice-js';
-import returnDictionary from './time_matrix';
+import {getMonuments} from './time_matrix';
 
 class Map extends React.Component<any, any, any> {
   mapRef: any;
@@ -21,7 +21,6 @@ class Map extends React.Component<any, any, any> {
   }
 
   componentDidMount() {
-    let monuments = returnDictionary()
     const initToCurrLocation = async() => {
       const {status}  = await Location.requestForegroundPermissionsAsync()
       if (status !== 'granted') {
@@ -37,10 +36,14 @@ class Map extends React.Component<any, any, any> {
         longitudeDelta: 0.0421
       }, 1000)
     }
-    this.setState({
-      pathMarker: Array.from(monuments.values()).map((monument: any) => ({name: monument[0], latitude: monument[2], longitude: monument[1]}))
-    })
+    const displayMarkers = async() => {
+      let monuments = await getMonuments()
+      this.setState({
+        pathMarker: Array.from(monuments.values()).map((monument: any) => ({name: monument[0], latitude: monument[2], longitude: monument[1]}))
+      })
+    }
     initToCurrLocation()
+    displayMarkers()
   }
 
   componentDidUpdate(prevProps) {
