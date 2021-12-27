@@ -1,7 +1,7 @@
 const math = require('mathjs');
 const XMLHttpRequest = require('xhr2');
 
-var adress = require('./monuments.json');
+const adress = require('./monuments.json');
 
 export async function getMonuments() {
   allMonumentsMap = new Map();
@@ -133,7 +133,7 @@ function totalTime(times) {
 }
 
 
-
+// code Kais
 /* VARIABLES */
 var R = 6371 ; /* Radius of earth [km] */
 var rayon = 15; /* en km */
@@ -145,7 +145,6 @@ function radian(delta){
 }
 
 
-// code Kais
 function distance (lat1, long1, lat2, long2){ /* calcul de la distance avec la formule de haversine */
     var delta_lat = radian(lat2 - lat1);
     var delta_long = radian(long2 - long1);
