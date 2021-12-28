@@ -4,7 +4,7 @@ import MapView, { Circle, Polyline, Marker, PROVIDER_GOOGLE } from 'react-native
 import { Accuracy } from 'expo-location';
 import * as Location from 'expo-location';
 import Openrouteservice from 'openrouteservice-js';
-import {getMonuments} from './time_matrix';
+import {monumentsInRadius} from './time_matrix';
 
 class Map extends React.Component<any, any, any> {
   mapRef: any;
@@ -36,20 +36,19 @@ class Map extends React.Component<any, any, any> {
         longitudeDelta: 0.0421
       }, 1000)
     }
-    const displayMarkers = async() => {
-      let monuments = await getMonuments()
-      this.setState({
-        pathMarker: Array.from(monuments.values()).map((monument: any) => ({name: monument[0], latitude: monument[2], longitude: monument[1]}))
-      })
-    }
     initToCurrLocation()
-    displayMarkers()
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.radius !== prevProps.radius) {
       this.computePath('48.791855', '2.331433');
+      let finalmonument = monumentsInRadius(this.state.lat, this.state.lon, this.props.radius)
+      this.setState({
+        pathMarker: Array.from(finalmonument.values()).map((monument: any) => ({name: monument[0], latitude: monument[2], longitude: monument[1]}))
+      })  
     }
+
+    
   }
 
   computePath(latitude: string, longitude: string) {

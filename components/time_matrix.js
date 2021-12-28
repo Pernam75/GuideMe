@@ -3,8 +3,8 @@ const XMLHttpRequest = require('xhr2');
 
 const adress = require('./monuments.json');
 
-export async function getMonuments() {
-  allMonumentsMap = new Map();
+export function getMonuments() {
+  const allMonumentsMap = new Map();
   /*
   for (let i = 0; i < adress.length; i++) {
     const coordonates = await getLocation(adress[i].Nom);
@@ -20,9 +20,8 @@ export async function getMonuments() {
   }
   */
   for (let i = 0; i < adress.length; i++) {
-    allMonumentsMap.set(i , [adress[i].Nom, adress[i].Longitude, adress[i].Latitude]);
+    allMonumentsMap.set(i , adress[i]);
     }
-  console.log(allMonumentsMap);
   return allMonumentsMap;
 }
 
@@ -151,16 +150,20 @@ function distance (lat1, long1, lat2, long2){ /* calcul de la distance avec la f
     var a = Math.pow(Math.sin(delta_lat / 2), 2) + Math.cos(radian(lat1)) * Math.cos(radian(lat2)) * Math.pow(Math.sin(delta_long/2), 2);
     var c = 2 * Math.atan(Math.sqrt(a) / Math.sqrt(1-a));
     var distance = R * c ;
-    /*console.log("a :", a, "c :", c);*/
+    console.log("a :", a, "c :", c);
     return distance;
 }
 
-function monuments(position, rayon, csv_json){
-    var liste_monuments = [];
-    for (let i=1; i< csv_json.data.length; i++){
-        if (distance(position[0], position[1], csv_json.data[i][3], csv_json.data[i][4]) <= rayon){
-            liste_monuments[csv_json.data[i][2]] = { latitude : csv_json.data[i][3], longitude : csv_json.data[i][4] };
-        }
-    }
+export function monumentsInRadius(positionLat, positionLong, rayon){
+    rayon = rayon/1000;
+    console.log(rayon);
+    const monumentsMap = getMonuments();
+    const liste_monuments = new Map();
+    monumentsMap.forEach((value,key) => {
+      console.log(value);
+      if (distance(positionLat, positionLong, value.Latitude, value.Longitude) <= rayon){
+        liste_monuments.set(key,[value.Nom, value.Longitude, value.Latitude]);
+      }
+    })
     return liste_monuments;
 }
