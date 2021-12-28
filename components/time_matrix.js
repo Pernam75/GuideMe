@@ -134,10 +134,7 @@ function totalTime(times) {
 
 // code Kais
 /* VARIABLES */
-var R = 6371 ; /* Radius of earth [km] */
-var rayon = 15; /* en km */
-var position = [48.78865493647841, 2.3638224559004315]; /* coordonnées Efrei Paris [latitude, longitude] */
-
+const R = 6371 ; /* Radius of earth [km] */
 
 function radian(delta){
     return delta * Math.PI / 180;
@@ -145,22 +142,19 @@ function radian(delta){
 
 
 function distance (lat1, long1, lat2, long2){ /* calcul de la distance avec la formule de haversine */
-    var delta_lat = radian(lat2 - lat1);
-    var delta_long = radian(long2 - long1);
-    var a = Math.pow(Math.sin(delta_lat / 2), 2) + Math.cos(radian(lat1)) * Math.cos(radian(lat2)) * Math.pow(Math.sin(delta_long/2), 2);
-    var c = 2 * Math.atan(Math.sqrt(a) / Math.sqrt(1-a));
-    var distance = R * c ;
-    console.log("a :", a, "c :", c);
+    const delta_lat = radian(lat2 - lat1);
+    const delta_long = radian(long2 - long1);
+    const a = Math.pow(Math.sin(delta_lat / 2), 2) + Math.cos(radian(lat1)) * Math.cos(radian(lat2)) * Math.pow(Math.sin(delta_long/2), 2);
+    const c = 2 * Math.atan(Math.sqrt(a) / Math.sqrt(1-a));
+    const distance = R * c ;
     return distance;
 }
 
 export function monumentsInRadius(positionLat, positionLong, rayon){
     rayon = rayon/1000;
-    console.log(rayon);
     const monumentsMap = getMonuments();
     const liste_monuments = new Map();
     monumentsMap.forEach((value,key) => {
-      console.log(value);
       if (distance(positionLat, positionLong, value.Latitude, value.Longitude) <= rayon){
         liste_monuments.set(key,[value.Nom, value.Longitude, value.Latitude]);
       }
