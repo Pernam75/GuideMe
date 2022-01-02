@@ -41,20 +41,40 @@ class Map extends React.Component<any, any, any> {
 
   componentDidUpdate(prevProps) {
     if (this.props.radius !== prevProps.radius) {
-      this.computePath('48.791855', '2.331433');
+      /*version propre
       let finalmonument = monumentsInRadius(this.state.lat, this.state.lon, this.props.radius)
       this.setState({
         pathMarker: Array.from(finalmonument.values()).map((monument: any) => ({name: monument[0], latitude: monument[2], longitude: monument[1]}))
-      })  
-    }
+      })
+      const circuit = getMonumentsOrder(this.state.lat, this.state.lon,  this.props.radius);
+      */
+      
+      //test
+      
+      //this.computePath('48.791855', '2.331433');
 
-    
+      
+      let finalmonument = monumentsInRadius(this.state.lat, this.state.lon, this.props.radius)
+      this.setState({
+        pathMarker: Array.from(finalmonument.values()).map((monument: any) => ({name: monument[0], latitude: monument[2], longitude: monument[1]}))
+      })
+      
+      const getPath = async() => {
+        const circuit = await getMonumentsOrder(this.state.lat, this.state.lon, this.props.radius);
+        const circuitArray = JSON.parse(circuit.toString());
+        let i = 1;
+        for(i = 1; i < circuitArray.length; i++){
+          this.computePath(circuitArray['Latitude'][i-1], circuitArray['Longitude'][i-1], circuitArray['Latitude'][i], circuitArray['Longitude'][i]);
+        }
+      }
+      getPath();
+    }
   }
 
-  computePath(latitude: string, longitude: string) {
+  computePath(latStart: string, longStart: string, latEnd: string, longEnd: string) {
     let orsDirections = new Openrouteservice.Directions({ api_key: "5b3ce3597851110001cf62488e507e8f47604f66ae8ba7a411f9f8bd"});
     orsDirections.calculate({
-      coordinates: [[this.state.lon, this.state.lat], [longitude, latitude]],
+      coordinates: [[longStart, latStart], [longEnd, latEnd]],
       profile: "foot-walking",
       preference: 'shortest',
       // extra_info: ["waytype", "steepness"],

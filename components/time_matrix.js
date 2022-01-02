@@ -4,10 +4,10 @@ const adress = require('./monuments.json');
 //const fetch = require('node-fetch');
 const { map } = require('mathjs');
 
-//getMonumentsOrder(48.787715911865234, 2.3556456565856934, 10000, 'durations');
+//getMonumentsOrder(48.85684, 2.35009, 3000); // centre de Paris
 
 
-export async function getMonumentsOrder(positionLat, positionLong, radius, choice) {
+export async function getMonumentsOrder(positionLat, positionLong, radius) {
   
   const selectedMonuments = monumentsInRadius(positionLat, positionLong, radius);
   if (selectedMonuments.size === 0){
@@ -23,7 +23,7 @@ export async function getMonumentsOrder(positionLat, positionLong, radius, choic
   });
   body += '],"metrics":["distance","duration"]}'
   //const body = '{"locations":[[2.3637293404211572, 48.78866444019816],[2.345876560484267, 48.84801727953965],[2.336792290124982, 48.86138199771364],[2.33118053722843, 48.87295800734902],[2.3500903111989238, 48.854060768080885], [2.2942992564516613, 48.85914188295359]],"metrics":["distance","duration"]}'
-  console.log(body)  
+  //console.log(body)  
   try {
     const res = await fetch(
       'https://api.openrouteservice.org/v2/matrix/foot-walking',
@@ -39,7 +39,6 @@ export async function getMonumentsOrder(positionLat, positionLong, radius, choic
     );
     const json = await res.json();
     return findShorterPath(json.durations, selectedMonuments);
-    
   } catch(e) {
     console.log('Failed request', e)
     return [];
@@ -93,7 +92,7 @@ async function getLocation(name) {
 
 function findShorterPath(adjMatrix, monumentsMap){
   let FloydWarshall = require('floyd-warshall');
-  console.log(adjMatrix);
+  //console.log(adjMatrix);
   let distMatrix = new FloydWarshall(adjMatrix).shortestPaths;
   //Getting the shortest path between each point with the Floyd-Warshall algorithm
   
@@ -106,16 +105,16 @@ function findShorterPath(adjMatrix, monumentsMap){
     times.push(getMinimum(distMatrix[currentPlace], path)[0]);
     path.push(getMinimum(distMatrix[currentPlace], path)[1]);
   }
-  console.log("path : "+path);
-  console.log("times : "+times);
+  //console.log("path : "+path);
+  //console.log("times : "+times);
   const result =  [{Nom : monumentsMap.get(0)[0], Longitude : monumentsMap.get(0)[1], Latitude : monumentsMap.get(0)[2], time:times[0]}];
   let i = 1;
   path.slice(1).forEach(element => {
     result.push({Nom : monumentsMap.get(element-1)[0], Longitude : monumentsMap.get(element-1)[1], Latitude : monumentsMap.get(element-1)[2], time:times[i]});
     i++;
   });
-  console.log(totalTime(times));
-  console.log(result);
+  //console.log(totalTime(times));
+  //console.log(result);
   return result;
 }
 
