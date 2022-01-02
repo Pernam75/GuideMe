@@ -1,14 +1,21 @@
-[{
+[
+{
+  "Nom": "Disneyland",
+  "Ville": "Marne-la-vallée",
+  "Latitude": 48.86759,
+  "Longitude": 2.78357
+},  
+{
   "Nom": "Musee du Louvre",
   "Ville": "Paris",
   "Latitude": 48.862412,
   "Longitude": 2.336589
 },
 {
-  "Nom": "Domaine de Versailles (1)",
+  "Nom": "Domaine de Versailles",
   "Ville": "Versailles",
-  "Latitude": 48.804312,
-  "Longitude": 2.095167
+  "Latitude": 48.80502, 
+  "Longitude": 2.12038
 },
 {
   "Nom": "Tour Eiffel",
@@ -31,11 +38,11 @@
 {
   "Nom": "Cite des sciences et de l'industrie de La Villette",
   "Ville": "Paris",
-  "Latitude": 47.649634,
-  "Longitude": 6.838257
+  "Latitude": 48.89573,
+  "Longitude": 2.38786
 },
 {
-  "Nom": "Le Puy du Fou (grand Parc + Cinescenie)",
+  "Nom": "Le Puy du Fou",
   "Ville": "Les epesses",
   "Latitude": 46.891881,
   "Longitude": -0.932613
@@ -43,26 +50,26 @@
 {
   "Nom": "Cite medievale (rempart + chateau) (2)",
   "Ville": "Carcassonne",
-  "Latitude": 46.369602,
-  "Longitude": 6.328778
+  "Latitude": 43.20693,
+  "Longitude": 2.936396
 },
 {
   "Nom": "Parc Asterix",
   "Ville": "Plailly",
-  "Latitude": 45.221001,
-  "Longitude": 5.684094
+  "Latitude": 49.13437,
+  "Longitude": 2.57127
 },
 {
   "Nom": "Parc du Futuroscope",
   "Ville": "Chasseneuil-du-Poitou",
-  "Latitude": 46.659541,
-  "Longitude": 0.36491
+  "Latitude": 46.67008,
+  "Longitude": 0.36977
 },
 {
   "Nom": "Museum d'Histoire Naturelle",
   "Ville": "Paris",
-  "Latitude": 47.212436,
-  "Longitude": -1.564741
+  "Latitude": 4884350,
+  "Longitude": 2.36346
 },
 {
   "Nom": "Arc de Triomphe",
@@ -73,8 +80,8 @@
 {
   "Nom": "Chateau des Ducs de Bretagne",
   "Ville": "Nantes",
-  "Latitude": 47.658747,
-  "Longitude": -2.447029
+  "Latitude": 47.21651,
+  "Longitude": -1.54875
 },
 {
   "Nom": "Zoo parc de Beauval",
@@ -103,26 +110,26 @@
 {
   "Nom": "Cimetiere americain d'Omaha",
   "Ville": "Colleville-sur-Mer",
-  "Latitude": 50.886663,
-  "Longitude": 2.416155
+  "Latitude": 49.35936,
+  "Longitude": -0.85543
 },
 {
   "Nom": "Parc Marineland",
   "Ville": "Antibes",
-  "Latitude": 43.280476,
-  "Longitude": 3.280117
+  "Latitude": 43.61503,
+  "Longitude": 7.12075
 },
 {
   "Nom": "Abbaye du Mont-Saint-Michel",
   "Ville": "Mont-Saint-Michel",
-  "Latitude": 47.997116,
-  "Longitude": -0.73892
+  "Latitude": 48.63717,
+  "Longitude": -1.51159
 },       
 {
   "Nom": "Cathedrale Saint-Just et Saint Pasteur",
   "Ville": "Narbonne",
-  "Latitude": 50.74715,
-  "Longitude": 2.253194
+  "Latitude": 43.18503,
+  "Longitude": 3.00372
 },
 {
   "Nom": "Musee de l'armee",
@@ -133,14 +140,14 @@
 {
   "Nom": "Musee du quai Branly",
   "Ville": "Paris",
-  "Latitude": 48.862263,
-  "Longitude": 2.299564
+  "Latitude": 48.86098,
+  "Longitude": 2.299796
 },
 {
   "Nom": "Petit Palais",
   "Ville": "Paris",
-  "Latitude": 48.866065,
-  "Longitude": 2.314391
+  "Latitude": 48.86616,
+  "Longitude": 2.31460
 },
 {
   "Nom": "Basilique Sainte-Madeleine de Vezelay",
@@ -161,7 +168,7 @@
   "Longitude": 1.434447
 },
 {
-  "Nom": "Telepherique de l'Aiguille du Midi (3)",
+  "Nom": "Telepherique de l'Aiguille du Midi",
   "Ville": "Chamonix-Mont-Blanc",
   "Latitude": 45.918209,
   "Longitude": 6.870182
@@ -175,8 +182,8 @@
 {
   "Nom": "Chateau de Chambord",
   "Ville": "Chambord",
-  "Latitude": 47.631957,
-  "Longitude": 1.480528
+  "Latitude": 47.61627,
+  "Longitude": 1.51719
 },
 {
   "Nom": "Site du Pont du Gard",
@@ -187,8 +194,8 @@
 {
   "Nom": "Musee des arts decoratifs de Paris",
   "Ville": "Paris",
-  "Latitude": 47.085038,
-  "Longitude": 2.398405
+  "Latitude": 48.86335,
+  "Longitude": 2.33350
 },
 {
   "Nom": "Chateau de Chenonceau",
@@ -212,7 +219,7 @@
   "Nom": "Parc zoologique de Paris",
   "Ville": "Paris",
   "Latitude": 48.833974,
-  "Longitude": -1.324197
+  "Longitude": 2.41446
 },
 {
   "Nom": "Palais de Tokyo",
@@ -229,20 +236,20 @@
 {
   "Nom": "Musee Picasso",
   "Ville": "Paris",
-  "Latitude": 43.580803,
-  "Longitude": 7.128349
+  "Latitude": 48.85978,
+  "Longitude": 2.36258
 },
 {
   "Nom": "Parc zoologique de la Palmyre",
   "Ville": "Les Mathes",
-  "Latitude": 48.833974,
-  "Longitude": -1.324197
+  "Latitude": 48.68768,
+  "Longitude": -1.16463
 },
 {
   "Nom": "Parc d'attractions Le Pal",
   "Ville": "Saint-Pourcain sur Besbre",
-  "Latitude": 45.99364,
-  "Longitude": 4.715843
+  "Latitude": 46.50915,
+  "Longitude": 3.62544
 },  
 {
   "Nom": "Verrerie de Biot",
@@ -251,10 +258,10 @@
   "Longitude": 7.101983
 },
 {
-  "Nom": "Site de Conques (ville)",
+  "Nom": "Site de Conques",
   "Ville": "Conques",
-  "Latitude": 48.327041,
-  "Longitude": 7.3164
+  "Latitude": 44.59961,
+  "Longitude": 2.39852
 },
 {
   "Nom": "Palais des Papes",
@@ -265,8 +272,8 @@
 {
   "Nom": "Parc d'attractions Nigloland",
   "Ville": "Dolancourt",
-  "Latitude": 43.280476,
-  "Longitude": 3.280117
+  "Latitude": 48.26078,
+  "Longitude": 4.61025
 },
 {
   "Nom": "Sanctuaire de Lourdes",
@@ -277,14 +284,14 @@
 {
   "Nom": "Parc du Heron",
   "Ville": "Villeneuve d'Ascq",
-  "Latitude": 46.12525,
-  "Longitude": 3.419201
+  "Latitude": 50.63653,
+  "Longitude": 3.14769
 },
 {
   "Nom": "Centre national de la mer - Nausicaa",
   "Ville": "Boulogne-sur-Mer",
-  "Latitude": 48.895511,
-  "Longitude": 2.402116
+  "Latitude": 50.73081,
+  "Longitude": 1.59515
 },
 {
   "Nom": "Catacombes",
@@ -323,16 +330,16 @@
   "Longitude": 6.837696
 },
 {
-  "Nom": "Centre Interpretation de l'Art Parietal - Lascaux IV (5)",
+  "Nom": "Centre Interpretation de l'Art Parietal - Lascaux IV",
   "Ville": "Montignac",
-  "Latitude": 48.110989,
-  "Longitude": -1.67258
+  "Latitude": 45.05885,
+  "Longitude": 1.67258
 },
 {
   "Nom": "Musee du Louvre Lens",
   "Ville": "Lens",
-  "Latitude": 48.862412,
-  "Longitude": 2.336589
+  "Latitude": 50.43184,
+  "Longitude": 2.80509
 },
 {
   "Nom": "Centre aqualudique les Atlantides au Mans",
@@ -344,16 +351,16 @@
   "Nom": "Parc zoologique de Thoiry",
   "Ville": "Thoiry",
   "Latitude": 48.833974,
-  "Longitude": -1.324197
+  "Longitude": 1.79687
 },
 {
   "Nom": "Domaine de Chantilly",
   "Ville": "Chantilly",
-  "Latitude": 44.433548,
-  "Longitude": 4.413334
+  "Latitude": 49.19461,
+  "Longitude": 2.47963
 },
 {
-  "Nom": "Musee du Mucem",
+  "Nom": "Mucem",
   "Ville": "Marseille",
   "Latitude": 43.29697,
   "Longitude": 5.361089
@@ -361,14 +368,14 @@
 {
   "Nom": "Cite du Vin",
   "Ville": "Bordeaux",
-  "Latitude": 48.578467,
-  "Longitude": 7.458515
+  "Latitude": 44.86274,
+  "Longitude": -55045
 },
 {
   "Nom": "Parc zoologique de La Fleche",
   "Ville": "La Fleche",
-  "Latitude": 48.833974,
-  "Longitude": -1.324197
+  "Latitude": 47.67820,
+  "Longitude": -0.0461
 },
 {
   "Nom": "Tours de Notre-Dame",
@@ -379,8 +386,8 @@
 {
   "Nom": "Visitor Center de Colleville-sur-Mer (cimetiere Americain)",
   "Ville": "Colleville-sur-Mer",
-  "Latitude": 48.872575,
-  "Longitude": 2.329035
+  "Latitude": 49.35952,
+  "Longitude": -0.85557
 },
 {
   "Nom": "Domaine regional de Chaumont-sur-Loire",
@@ -389,7 +396,7 @@
   "Longitude": 1.179709
 },
 {
-  "Nom": "Palais de la Porte Doree (6)",
+  "Nom": "Palais de la Porte Doree",
   "Ville": "Paris",
   "Latitude": 48.835017,
   "Longitude": 2.409184
@@ -403,8 +410,8 @@
 {
   "Nom": "Caverne du Pont-d'Arc (Grotte de Chauvet 2)",
   "Ville": "Vallon Pont-d'Arc",
-  "Latitude": 48.876714,
-  "Longitude": 2.738127
+  "Latitude": 44.40645,
+  "Longitude": 4.43106
 },
 {
   "Nom": "Oceanopolis",
@@ -421,14 +428,14 @@
 {
   "Nom": "Cite de l'espace",
   "Ville": "Toulouse",
-  "Latitude": 47.316116,
-  "Longitude": 5.10855
+  "Latitude": 4358750,
+  "Longitude": 1.49250
 },
 {
   "Nom": "Les Antilles a Jonzac",
   "Ville": "Jonzac",
-  "Latitude": 43.123599,
-  "Longitude": 5.932354
+  "Latitude": 45.43933,
+  "Longitude": -0.42667
 },
 {
   "Nom": "Pont Saint Benezet d'Avignon",
@@ -457,14 +464,14 @@
 {
   "Nom": "Conciergerie",
   "Ville": "Paris",
-  "Latitude": 48.6799,
-  "Longitude": 6.181505
+  "Latitude": 48.85627,
+  "Longitude": 2.34524
 },
 {
   "Nom": "Parc zoologique et botanique",
   "Ville": "Mulhouse",
-  "Latitude": 4.95074,
-  "Longitude": -52.489301
+  "Latitude": 47.73219,
+  "Longitude": 7.34758
 },
 {
   "Nom": "Thermapolis",
@@ -485,10 +492,10 @@
   "Longitude": 4.134535
 },
 {
-  "Nom": "Memorial de la paix",
+  "Nom": "Memorial de la paix de Caen",
   "Ville": "Caen",
-  "Latitude": 45.694077,
-  "Longitude": 4.94088
+  "Latitude": 49.19779,
+  "Longitude": -0.38419
 },
 {
   "Nom": "Dune du Pilat",
@@ -500,13 +507,13 @@
   "Nom": "Parc de Champagne",
   "Ville": "Reims",
   "Latitude": 49.042415,
-  "Longitude": 3.965682
+  "Longitude": 4.05574
 },
 {
-  "Nom": "Jacobins de Toulouse",
+  "Nom": "Couvent des Jacobins de Toulouse",
   "Ville": "Toulouse",
-  "Latitude": 46.8348,
-  "Longitude": 5.709301
+  "Latitude": 43.60367,
+  "Longitude": 1.44018
 },
 {
   "Nom": "Cathedrale de Rodez",
@@ -527,7 +534,7 @@
   "Longitude": 1.982896
 },
 {
-  "Nom": "Tapisserie de Bayeux",
+  "Nom": "Musée de la Tapisserie de Bayeux",
   "Ville": "Bayeux",
   "Latitude": 49.274378,
   "Longitude": -0.70007
@@ -539,16 +546,16 @@
   "Longitude": 7.49534
 },
 {
-  "Nom": "Musee des beaux-arts",
+  "Nom": "Musee des beaux-arts de Lyon",
   "Ville": "Lyon",
-  "Latitude": 49.25333,
-  "Longitude": 4.031019
+  "Latitude": 45.76738,
+  "Longitude": 4.83332
 },
 {
   "Nom": "Petit train de la Rhune",
   "Ville": "Sare",
-  "Latitude": 44.310632,
-  "Longitude": 4.172766
+  "Latitude": 43.32547,
+  "Longitude": -1.60079
 },
 {
   "Nom": "Parc de la mer de sable",
@@ -583,8 +590,8 @@
 {
   "Nom": "La Vallee des Saints",
   "Ville": "Carnoet",
-  "Latitude": 47.924608,
-  "Longitude": -2.111676
+  "Latitude": 48.48682,
+  "Longitude": -3.57279
 },
 {
   "Nom": "Vulcania",
@@ -595,38 +602,38 @@
 {
   "Nom": "Aquarium Mare Nostrum - Planet Ocean",
   "Ville": "Montpellier",
-  "Latitude": 44.663314,
-  "Longitude": -1.163504
+  "Latitude": 43.60299,
+  "Longitude": 3.91693
 },
 {
   "Nom": "Parc Phoenix",
   "Ville": "Nice",
-  "Latitude": 46.759776,
-  "Longitude": 6.345746
+  "Latitude": 43.66931,
+  "Longitude": 7.21891
 },
 {
   "Nom": "Parc animalier de Sainte Croix",
   "Ville": "Rhodes",
-  "Latitude": 43.749039,
-  "Longitude": 5.820834
+  "Latitude": 48.774039,
+  "Longitude": 6.89940
 },
 {
   "Nom": "Parc Sportica",
   "Ville": "Gravelines",
-  "Latitude": 43.280476,
-  "Longitude": 3.280117
+  "Latitude": 50.99939,
+  "Longitude": 2.12240
 },
 {
   "Nom": "Musee Jacquemart-Andre",
   "Ville": "Paris",
-  "Latitude": 49.148274,
-  "Longitude": 2.685825
+  "Latitude": 48.87555,
+  "Longitude": 2.31067
 },
 {
   "Nom": "Parc animalier Reserve africaine de Sigean",
   "Ville": "Sigean",
-  "Latitude": 43.749039,
-  "Longitude": 5.820834
+  "Latitude": 43.06561,
+  "Longitude": 2.95832
 },
 {
   "Nom": "Casino de Ribeauville",
@@ -637,8 +644,8 @@
 {
   "Nom": "Telepherique de la Bastille",
   "Ville": "Grenoble",
-  "Latitude": 46.167013,
-  "Longitude": 6.715628
+  "Latitude": 45.167013,
+  "Longitude": 5.715628
 },
 {
   "Nom": "Guedelon chantier medieval",
