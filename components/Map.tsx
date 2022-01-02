@@ -4,7 +4,7 @@ import MapView, { Circle, Polyline, Marker, PROVIDER_GOOGLE } from 'react-native
 import { Accuracy } from 'expo-location';
 import * as Location from 'expo-location';
 import Openrouteservice from 'openrouteservice-js';
-import {monumentsInRadius} from './time_matrix';
+import {monumentsInRadius, totalTime, getMonumentsOrder} from './time_matrix';
 
 class Map extends React.Component<any, any, any> {
   mapRef: any;

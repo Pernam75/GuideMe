@@ -1,40 +1,50 @@
 const math = require('mathjs');
 const XMLHttpRequest = require('xhr2');
 const adress = require('./monuments.json');
+//const fetch = require('node-fetch');
+const { map } = require('mathjs');
 
-getMonumentsOrder(2.3556456565856934, 48.787715911865234, 10000, 'durations');
+//getMonumentsOrder(48.787715911865234, 2.3556456565856934, 10000, 'durations');
 
 
-function getMonumentsOrder(positionLat, positionLong, radius, choice) {
+export async function getMonumentsOrder(positionLat, positionLong, radius, choice) {
   
   const selectedMonuments = monumentsInRadius(positionLat, positionLong, radius);
+  if (selectedMonuments.size === 0){
+    return[];
+  }
   let locationsArray = [[positionLong, positionLat]]
   selectedMonuments.forEach((value, key) => {
-    locationsArray.push([value.Longitude, value.Latitude])
+    locationsArray.push([value[1], value[2]])
   });
   let body = '{"locations":['
-  locationsArray.forEach(location => {
-    body += '['+location[0].toString()+', '+location[1].toString()+']';
+  locationsArray.forEach((location, index) => {
+    body += `[${location[0]},${location[1]}]${index < locationsArray.length-1 ? "," : ""}`;
   });
   body += '],"metrics":["distance","duration"]}'
-  console.log(body)
-  let requestMatrix = new XMLHttpRequest();
-  requestMatrix.open('POST', "https://api.openrouteservice.org/v2/matrix/foot-walking");
-  requestMatrix.setRequestHeader('Accept', 'application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8');
-  requestMatrix.setRequestHeader('Content-Type', 'application/json');
-  requestMatrix.setRequestHeader('Authorization', '5b3ce3597851110001cf62488e507e8f47604f66ae8ba7a411f9f8bd');
-  let shorterPath = [];
-  requestMatrix.onreadystatechange = function () {
-    if (this.readyState === 4) {
-      let array = JSON.parse(this.responseText);
-      //console.log(array)
-      //shorterPath = findShorterPath(array[choice]);
-    }
-  };
-  requestMatrix.send(body);
-
-
-  //console.log(shorterPath)
+  //const body = '{"locations":[[2.3637293404211572, 48.78866444019816],[2.345876560484267, 48.84801727953965],[2.336792290124982, 48.86138199771364],[2.33118053722843, 48.87295800734902],[2.3500903111989238, 48.854060768080885], [2.2942992564516613, 48.85914188295359]],"metrics":["distance","duration"]}'
+  console.log(body)  
+  try {
+    const res = await fetch(
+      'https://api.openrouteservice.org/v2/matrix/foot-walking',
+      {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8',
+          'Content-Type': 'application/json',
+          'Authorization': '5b3ce3597851110001cf62488e507e8f47604f66ae8ba7a411f9f8bd',
+        },
+        body
+      }
+    );
+    const json = await res.json();
+    return findShorterPath(json.durations, selectedMonuments);
+    
+  } catch(e) {
+    console.log('Failed request', e)
+    return [];
+  }
+  
 }
 
 
@@ -81,8 +91,9 @@ async function getLocation(name) {
 
 
 
-function findShorterPath(adjMatrix){
+function findShorterPath(adjMatrix, monumentsMap){
   let FloydWarshall = require('floyd-warshall');
+  console.log(adjMatrix);
   let distMatrix = new FloydWarshall(adjMatrix).shortestPaths;
   //Getting the shortest path between each point with the Floyd-Warshall algorithm
   
@@ -97,14 +108,15 @@ function findShorterPath(adjMatrix){
   }
   console.log("path : "+path);
   console.log("times : "+times);
-  let stringPath = monumentsMap.get(0)[0].toString();
+  const result =  [{Nom : monumentsMap.get(0)[0], Longitude : monumentsMap.get(0)[1], Latitude : monumentsMap.get(0)[2], time:times[0]}];
+  let i = 1;
   path.slice(1).forEach(element => {
-    stringPath += '->'+monumentsMap.get(element)[0];
+    result.push({Nom : monumentsMap.get(element-1)[0], Longitude : monumentsMap.get(element-1)[1], Latitude : monumentsMap.get(element-1)[2], time:times[i]});
+    i++;
   });
-  console.log(stringPath);
   console.log(totalTime(times));
-
-  return [path, times, stringPath]
+  console.log(result);
+  return result;
 }
 
 function getMinimum(vector, path) {
@@ -127,7 +139,7 @@ function nin (list, element){
   }
 }
 
-function totalTime(times) {
+export function totalTime(times) {
   let total = 0.0;
   times.forEach(time => {
     total += parseFloat(time);
@@ -161,13 +173,15 @@ function distance (lat1, long1, lat2, long2){ /* calcul de la distance avec la f
     return distance;
 }
 
-function monumentsInRadius(positionLat, positionLong, rayon){
+export function monumentsInRadius(positionLat, positionLong, rayon){
     rayon = rayon/1000;
     const monumentsMap = getMonuments();
     const liste_monuments = new Map();
-    monumentsMap.forEach((value,key) => {
+    let i = 0;
+    monumentsMap.forEach(value => {
       if (distance(positionLat, positionLong, value.Latitude, value.Longitude) <= rayon){
-        liste_monuments.set(key,[value.Nom, value.Longitude, value.Latitude]);
+        liste_monuments.set(i,[value.Nom, value.Longitude, value.Latitude]);
+        i++;
       }
     })
     return liste_monuments;
