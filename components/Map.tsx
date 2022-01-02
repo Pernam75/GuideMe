@@ -60,7 +60,10 @@ class Map extends React.Component<any, any, any> {
       this.setState({
         pathMarker: Array.from(finalmonument.values()).map((monument: any) => ({name: monument[0], latitude: monument[2], longitude: monument[1]}))
       })
-      
+      this.setState({
+        path : [],
+        paths:[]
+      })
       const getPath = async() => {
         const circuit = await getMonumentsOrder(this.state.lat, this.state.lon, this.props.radius);
         //this.computePath(this.state.lon, this.state.lat, circuit[0].Longitude, circuit[0].Latitude, 0);

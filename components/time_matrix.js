@@ -38,7 +38,7 @@ export async function getMonumentsOrder(positionLat, positionLong, radius) {
       }
     );
     const json = await res.json();
-    return findShorterPath(json.durations, selectedMonuments);
+    return findShorterPath(json.durations, selectedMonuments, positionLat, positionLong);
   } catch(e) {
     console.log('Failed request', e)
     return [];
@@ -90,7 +90,7 @@ async function getLocation(name) {
 
 
 
-function findShorterPath(adjMatrix, monumentsMap){
+function findShorterPath(adjMatrix, monumentsMap, positionLat, positionLong){
   let FloydWarshall = require('floyd-warshall');
   //console.log(adjMatrix);
   let distMatrix = new FloydWarshall(adjMatrix).shortestPaths;
@@ -107,8 +107,7 @@ function findShorterPath(adjMatrix, monumentsMap){
   }
   //console.log("path : "+path);
   //console.log("times : "+times);
-  const result =  [{Nom : monumentsMap.get(0)[0], Longitude : monumentsMap.get(0)[1], Latitude : monumentsMap.get(0)[2], time:times[0]}];
-  let i = 1;
+  const result =  [{Nom : "Départ", Longitude : positionLong, Latitude :  positionLat, time:times[0]}];  let i = 1;
   path.slice(1).forEach(element => {
     result.push({Nom : monumentsMap.get(element-1)[0], Longitude : monumentsMap.get(element-1)[1], Latitude : monumentsMap.get(element-1)[2], time:times[i]});
     i++;
