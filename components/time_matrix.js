@@ -1,13 +1,13 @@
 const math = require('mathjs');
 const XMLHttpRequest = require('xhr2');
 const adress = require('./monuments.json');
-//const fetch = require('node-fetch');
+const fetch = require('node-fetch');
 const { map } = require('mathjs');
 
-//getMonumentsOrder(48.85684, 2.35009, 3000); // centre de Paris
+getMonumentsOrder(48.769018, 2.361042, 9000);
 
 
-export async function getMonumentsOrder(positionLat, positionLong, radius) {
+async function getMonumentsOrder(positionLat, positionLong, radius) {
   
   const selectedMonuments = monumentsInRadius(positionLat, positionLong, radius);
   if (selectedMonuments.size === 0){
@@ -105,16 +105,16 @@ function findShorterPath(adjMatrix, monumentsMap){
     times.push(getMinimum(distMatrix[currentPlace], path)[0]);
     path.push(getMinimum(distMatrix[currentPlace], path)[1]);
   }
-  //console.log("path : "+path);
-  //console.log("times : "+times);
-  const result =  [{Nom : monumentsMap.get(0)[0], Longitude : monumentsMap.get(0)[1], Latitude : monumentsMap.get(0)[2], time:times[0]}];
+  console.log("path : "+path);
+  console.log("times : "+times);
+  const result =  [{Nom : "Départ", Longitude : 2.361042, Latitude :  48.769018, time:times[0]}];
   let i = 1;
   path.slice(1).forEach(element => {
     result.push({Nom : monumentsMap.get(element-1)[0], Longitude : monumentsMap.get(element-1)[1], Latitude : monumentsMap.get(element-1)[2], time:times[i]});
     i++;
   });
   //console.log(totalTime(times));
-  //console.log(result);
+  console.log(result);
   return result;
 }
 
@@ -138,7 +138,7 @@ function nin (list, element){
   }
 }
 
-export function totalTime(times) {
+function totalTime(times) {
   let total = 0.0;
   times.forEach(time => {
     total += parseFloat(time);
@@ -172,7 +172,7 @@ function distance (lat1, long1, lat2, long2){ /* calcul de la distance avec la f
     return distance;
 }
 
-export function monumentsInRadius(positionLat, positionLong, rayon){
+function monumentsInRadius(positionLat, positionLong, rayon){
     rayon = rayon/1000;
     const monumentsMap = getMonuments();
     const liste_monuments = new Map();
