@@ -1,19 +1,18 @@
 import * as React from 'react';
 import { StyleSheet, Image } from 'react-native';
-
-import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
 import Search from '../components/Search';
 
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
+  const [radius, setRadius] = React.useState(0)
   return (
     <View style={styles.container}>
       <Image
         style={styles.imageAccueil}
         source = {require('../assets/images/logo_small.png')}
       />
-      <Search/>
+      <Search onValidate={(val: number) => setRadius(val)} />
     </View>
   );
 }

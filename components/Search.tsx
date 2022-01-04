@@ -11,23 +11,25 @@ class Search extends React.Component<any, any, any> {
     render(){
         return(
             <View style={styles.container}>
-                <TextInput
-                    style={{
-                        color: 'black',
-                        borderColor: 'black',
-                        borderWidth:1,
-                        height:50
-                    }}
+                <View style={styles.textBox}>
+                    <Text style={styles.textStyle}>Dans quel rayon souhaitez vous vous déplacer ?</Text>
+                </View>
+                <View style={styles.textBox}>
+                <TextInput style={styles.zoneDeTexte}
                     keyboardType='numeric'
-                    placeholder='Dans quel rayon (mètres) ?'
+                    placeholder='(En mètres)'
                     value={this.state.value}
                     onChangeText={val => this.setState({value: val})}
                     onSubmitEditing={() => this.props.onValidate(parseInt(this.state.value))}
                 />
-                <Button
+                </View>
+                <View style={styles.buttonBox}>
+                <Button 
                     title='Valider'
+                    color={'black'}
                     onPress={() => this.props.onValidate(parseInt(this.state.value))}
                 />
+                </View>
             </View>
         )
     }
@@ -37,6 +39,24 @@ const styles = StyleSheet.create({
       flex: 1,
       alignItems: 'center',
       width: '100%',
+    },
+    zoneDeTexte: {
+        borderColor: 'black',
+        borderWidth:1,
+        width: '100%',
+        textAlign: 'center',
+        height: 50,
+    },
+    textBox: {
+        width : '75%',
+    },
+    buttonBox: {
+        width: '75%',
+    },
+    textStyle: {
+        fontSize: 20,
+        textAlign: 'center',
+        marginBottom: '10%',
     }
   });
 
