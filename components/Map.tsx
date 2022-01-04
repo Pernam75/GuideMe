@@ -69,6 +69,7 @@ class Map extends React.Component<any, any, any> {
         //this.computePath(this.state.lon, this.state.lat, circuit[0].Longitude, circuit[0].Latitude, 0);
         let i = 1;
         for(i = 1; i < circuit.length; i++){
+          console.log("\n\n\n\nitération n°"+i+"\ndans la boucle :\n"+circuit[i-1].Nom+" : [["+circuit[i-1].Latitude + ", " + circuit[i-1].Longitude +"] vers " + circuit[i].Nom + " : [" + circuit[i].Latitude + ", "+ circuit[i].Longitude+"]]");
           this.computePath(circuit[i-1].Latitude, circuit[i-1].Longitude, circuit[i].Latitude, circuit[i].Longitude, i);
         }
       }
@@ -77,6 +78,7 @@ class Map extends React.Component<any, any, any> {
   }
 
   computePath(latStart: string, longStart: string, latEnd: string, longEnd: string, i : Number) {
+    console.log("dans la fonction :\n"+"[Start : ["+longStart + ", " + latStart + "]\nArrivée : [" + longEnd + ", " + latEnd+"]]")
     let orsDirections = new Openrouteservice.Directions({ api_key: "5b3ce3597851110001cf62488e507e8f47604f66ae8ba7a411f9f8bd"});
     orsDirections.calculate({
       coordinates: [[longStart, latStart], [longEnd, latEnd]],
@@ -92,9 +94,11 @@ class Map extends React.Component<any, any, any> {
           this.setState({
             path: res
                     .features[0].geometry.coordinates
-                    .map((point: any) => ({cle : i, latitude: point[1], longitude: point[0]}))
+                    .map((point: any) => ({latitude: point[1], longitude: point[0]}))
           })
-          this.state.paths.push(this.state.path);
+          this.state.paths.push({chemin : this.state.path, cle : i});
+          console.log("taille chemin :" ,this.state.paths[i].chemin.length);
+
           /*for(let j =0; j < this.state.paths.length; j++){
             console.log("test", this.state.paths[j][0]);
           }
@@ -125,7 +129,7 @@ class Map extends React.Component<any, any, any> {
             strokeColor="#FF0000"
             strokeWidth={6}
             lineDashPattern={[0]}
-            coordinates={path}
+            coordinates={path.chemin}
           />
         ))}
         {this.state.pathMarker.map((marker: any) => (
