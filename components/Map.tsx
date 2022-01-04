@@ -135,6 +135,11 @@ class Map extends React.Component<any, any, any> {
             title={marker.name}
           />
         ))}
+        <Marker
+          coordinate={{latitude : this.state.lat, longitude: this.state.lon}}
+          title={'Depart'}
+          pinColor={'green'}
+        />
       </MapView>
     );
   }
