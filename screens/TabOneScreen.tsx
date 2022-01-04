@@ -3,6 +3,7 @@ import { StyleSheet, Image } from 'react-native';
 import { Text, View } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
 import Search from '../components/Search';
+import FlatListBasics from '../components/liste';
 
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
   const [radius, setRadius] = React.useState(0)
@@ -13,6 +14,7 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
         source = {require('../assets/images/logo_small.png')}
       />
       <Search onValidate={(val: number) => setRadius(val)} />
+    <FlatListBasics/>
     </View>
   );
 }
