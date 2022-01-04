@@ -142,9 +142,8 @@ export function totalTime(times) {
   times.forEach(time => {
     total += parseFloat(time);
   });
-  total = total;
-  h = math.floor(total/3600);
-  min = math.floor((total%3600)/60)
+  let h = math.floor(total/3600);
+  let min = math.floor((total%3600)/60)
   if(math.floor(total%60) >= 30){
     min += 1;
   }
