@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, TextInput, Text, Button } from 'react-native';
+import { View, TextInput, Text, Button, StyleSheet } from 'react-native';
 
 class Search extends React.Component<any, any, any> {
     constructor(props) {
@@ -10,7 +10,7 @@ class Search extends React.Component<any, any, any> {
 
     render(){
         return(
-            <View style={{width: '100%'}}>
+            <View style={styles.container}>
                 <TextInput
                     style={{
                         color: 'black',
@@ -32,4 +32,12 @@ class Search extends React.Component<any, any, any> {
         )
     }
 }
+const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      alignItems: 'center',
+      width: '100%',
+    }
+  });
+
 export default Search;

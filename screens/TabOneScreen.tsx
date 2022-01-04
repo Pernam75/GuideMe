@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Image } from 'react-native';
 
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
@@ -9,10 +9,11 @@ import Search from '../components/Search';
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>GuideMe</Text>
+      <Image
+        style={styles.imageAccueil}
+        source = {require('../assets/images/logo_small.png')}
+      />
       <Search/>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/TabOneScreen.tsx" />
     </View>
   );
 }
@@ -35,4 +36,9 @@ const styles = StyleSheet.create({
     height: 1,
     width: '80%',
   },
+  imageAccueil: {
+    flex : 1,
+    maxWidth : '92%',
+    resizeMode: 'contain',
+  }
 });
