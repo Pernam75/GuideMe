@@ -17,11 +17,11 @@ class Map extends React.Component<any, any, any> {
       lat: 0,
       lon: 0, 
       pathMarker: [],
-      path: [],
       paths: [],
     }
   }
 
+  
   componentDidMount() {
     const initToCurrLocation = async() => {
       const {status}  = await Location.requestForegroundPermissionsAsync()
@@ -58,15 +58,15 @@ class Map extends React.Component<any, any, any> {
       
       let finalmonument = monumentsInRadius(this.state.lat, this.state.lon, this.props.radius)
       this.setState({
-        pathMarker: Array.from(finalmonument.values()).map((monument: any) => ({name: monument[0], latitude: monument[2], longitude: monument[1]}))
+        pathMarker: Array.from(finalmonument.values()).map((monument: any) => ({name: monument[0], latitude: monument[2], longitude: monument[1]})),
+        paths: []
       })
-      this.setState({
-        path : [],
-        paths:[]
-      })
-      const getPath = async() => {
-        const circuit = await getMonumentsOrder(this.state.lat, this.state.lon, this.props.radius);
-        //this.computePath(this.state.lon, this.state.lat, circuit[0].Longitude, circuit[0].Latitude, 0);
+      let getPath = async() => {
+        /*if(this.state.paths.length > 0){
+          this.state.paths.length = 0;
+        }*/
+        
+        let circuit = await getMonumentsOrder(this.state.lat, this.state.lon, this.props.radius);
         let i = 1;
         for(i = 1; i < circuit.length; i++){
           console.log("\n\n\n\nitération n°"+i+"\ndans la boucle :\n"+circuit[i-1].Nom+" : [["+circuit[i-1].Latitude + ", " + circuit[i-1].Longitude +"] vers " + circuit[i].Nom + " : [" + circuit[i].Latitude + ", "+ circuit[i].Longitude+"]]");
@@ -91,13 +91,13 @@ class Map extends React.Component<any, any, any> {
     .then((res: any) => {
         // Add your own result handling here
         if (res?.features?.[0]?.geometry?.coordinates) {
-          this.setState({
-            path: res
-                    .features[0].geometry.coordinates
-                    .map((point: any) => ({latitude: point[1], longitude: point[0]}))
-          })
-          this.state.paths.push({chemin : this.state.path, cle : i});
-          console.log("taille chemin :" ,this.state.paths[i].chemin.length);
+          let tmppath =
+                  res.features[0].geometry.coordinates
+                  .map((point: any) => ({latitude: point[1], longitude: point[0]}))
+          this.setState(
+            {paths: [...this.state.paths, {chemin :tmppath, cle:i}]}
+          )
+         //console.log("taille chemin :" ,this.state.paths[i].chemin.length);
 
           /*for(let j =0; j < this.state.paths.length; j++){
             console.log("test", this.state.paths[j][0]);
