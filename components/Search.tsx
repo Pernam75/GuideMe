@@ -26,7 +26,7 @@ class Search extends React.Component<any, any, any> {
                 <View style={styles.buttonBox}>
                 <Button 
                     title='Valider'
-                    color={'black'}
+                    color='black'
                     onPress={() => this.props.onValidate(parseInt(this.state.value))}
                 />
                 </View>

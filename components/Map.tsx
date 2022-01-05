@@ -113,7 +113,7 @@ class Map extends React.Component<any, any, any> {
     return (
       <MapView
         ref={ref => { this.mapRef = ref }}
-        style={{ width: "100%", height: "80%" }}
+        style={{ width: "100%", height: "70%", flex:2 }}
         provider={PROVIDER_GOOGLE}
         showsUserLocation>
         {this.props.radius > 0 && (
