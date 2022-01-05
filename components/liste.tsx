@@ -4,10 +4,11 @@ import { monumentsInRadius } from './time_matrix';
 import {CheckBox} from 'react-native-elements';
 
 class FlatListBasics extends React.Component<any, any, any> {
-  constructor(props){
+  constructor(props: any){
     super(props)
     this.state = {
-      data: []
+      data: [],
+      ids: []
     }
   }
 
@@ -25,24 +26,46 @@ class FlatListBasics extends React.Component<any, any, any> {
   
   renderItem = ({ item }) => {
     return (
-      <View>
+      <View style = {styles.box}>
         <Text style={styles.item}>{item.key}</Text>
         <CheckBox
           // iconRight
           checkedIcon="dot-circle-o"
           uncheckedIcon="circle-o"
-          checked={false}
+          checked={this.isChecked(item.id)}
+          onPress={() => this.toggleChecked(item.id)}
         />
       </View>
       
     )
   }
 
+  isChecked = (itemId) => {
+    const isThere = this.state.ids.includes(itemId);
+    return isThere;
+  };
+
+  toggleChecked = (itemId) => {
+    const ids = [...this.state.ids, itemId];
+
+    if (this.isChecked(itemId)) {
+      this.setState({
+        ...this.state,
+        ids: this.state.ids.filter((id) => id !== itemId),
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        ids,
+      });
+    }
+  };
+
 
   render(){
     return (
       <View style={styles.container}>
-        <Text>Test CheckBox</Text>
+        <Text>Sélectionnez les monuments</Text>
         <FlatList
           data={this.transformData()}
           keyExtractor={(item) => {
@@ -62,7 +85,6 @@ const styles = StyleSheet.create({
     paddingTop: 22
   },
   item: {
-    backgroundColor: "#f9c2ff",
     padding: 20,
     marginVertical: 8
   },
@@ -76,6 +98,12 @@ const styles = StyleSheet.create({
     fontSize: 32,
     backgroundColor: "#fff"
   },
+  box:{
+    backgroundColor: "#f9c2ff",
+    flex: 1,
+    flexDirection: 'row'
+  }
+  
 });
 
 export default FlatListBasics;
