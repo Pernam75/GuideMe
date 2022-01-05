@@ -6,14 +6,13 @@ import Search from '../components/Search';
 import FlatListBasics from '../components/liste';
 
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
-  const [radius, setRadius] = React.useState(0)
   return (
     <View style={styles.container}>
       <Image
         style={styles.imageAccueil}
         source = {require('../assets/images/logo_small.png')}
       />
-      <Search onValidate={(val: number) => setRadius(val)} />
+      <Search />
     <FlatListBasics/>
     </View>
   );
