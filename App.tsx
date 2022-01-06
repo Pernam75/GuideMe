@@ -42,7 +42,6 @@ return (
     />
     <Search onValidate={(val: number) =>{
       navigation.navigate('Choice', {enteredRadius: val});
-      console.log(val);
       }} />
   </View>
 );
@@ -52,7 +51,7 @@ function ChoiceScreen({ route, navigation }) {
 const passingRadius = route.params.enteredRadius
 return (
   <SafeAreaView style={styles.container}>
-    <Text>{route.params.enteredRadius}</Text>
+    <Text>{passingRadius}</Text>
       <Button
       title="Map"
       onPress={() =>
@@ -64,13 +63,14 @@ return (
 );
 }
 
-function MapScreen({ route }){
-  const [radius, setRadius] = React.useState(0)
+function MapScreen({ route, navigation }){
+  const [radius1, setRadius] = React.useState(0)
+  const radius = route.params.radius;
   return (
-    <View style={styles.container}>
-      {/*<Search onValidate={(val: number) => setRadius(val)} />*/}
+    <SafeAreaView style={styles.container}>
+      <Text>{radius}</Text>
       <Map radius={radius} />
-    </View>
+    </SafeAreaView>
 );
 }
 

@@ -5,6 +5,7 @@ import { Accuracy } from 'expo-location';
 import * as Location from 'expo-location';
 import Openrouteservice from 'openrouteservice-js';
 import {monumentsInRadius, getMonumentsOrder} from './time_matrix';
+import { thomsonCrossSectionDependencies } from 'mathjs';
 
 class Map extends React.Component<any, any, any> {
   mapRef: any;
@@ -37,11 +38,9 @@ class Map extends React.Component<any, any, any> {
         longitudeDelta: 0.0421
       }, 1000)
     }
-    initToCurrLocation()
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.radius !== prevProps.radius) {
+    const displayPath = async() => {
+      const location = await initToCurrLocation()
+      console.log(this.state.lat, this.state.lon, this.props.radius);
       let finalmonument = monumentsInRadius(this.state.lat, this.state.lon, this.props.radius)
       this.setState({
         pathMarker: Array.from(finalmonument.values()).map((monument: any) => ({name: monument[0], latitude: monument[2], longitude: monument[1]})),
@@ -49,7 +48,10 @@ class Map extends React.Component<any, any, any> {
       })
       this.getPath();
     }
+    displayPath()
   }
+
+
 
   getPath = async() => {
     let circuit = await getMonumentsOrder(this.state.lat, this.state.lon, this.props.radius);
