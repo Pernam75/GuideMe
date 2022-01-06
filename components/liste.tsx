@@ -44,14 +44,19 @@ class FlatListBasics extends React.Component<any, any, any> {
   renderItem = ({ item }) => {
     return (
       <View style = {styles.box}>
-        <Text style={styles.item}>{item.key}</Text>
-        <CheckBox
-          // iconRight
-          checkedIcon="dot-circle-o"
-          uncheckedIcon="circle-o"
-          checked={this.isChecked(item.id)}
-          onPress={() => this.toggleChecked(item.id)}
-        />
+        <View style = {styles.textInBox}>
+          <Text style={styles.item}>{item.key}</Text>
+        </View>
+
+        <View style={styles.checkbox}>
+          <CheckBox 
+            // iconRight
+            checkedIcon="dot-circle-o"
+            uncheckedIcon="circle-o"
+            checked={this.isChecked(item.id)}
+            onPress={() => this.toggleChecked(item.id)}
+          />
+        </View>
       </View>
       
     )
@@ -81,19 +86,22 @@ class FlatListBasics extends React.Component<any, any, any> {
   render(){
     return (
       <View style={styles.container}>
-        <Text>Sélectionnez les monuments</Text>
+        <Text style={styles.title}>Sélectionnez les monuments :</Text>
         <FlatList
           data={this.transformData()}
           keyExtractor={(item) => {
-            return item.id;
-          }}
-          renderItem={this.renderItem}
+          return item.id;
+        }}
+        renderItem={this.renderItem}
         />
-      <Button
-        title="Map"
-        onPress={() => this.props.onValidate(this.state.ids)}
-      />
+      <View style={styles.bouton}>
+        <Button
+          title="Valider"
+          onPress={() => this.props.onValidate(this.state.ids)}
+          color={"#FF5576"}
+        />
       </View>
+    </View>
     );
   }
 
@@ -109,21 +117,40 @@ const styles = StyleSheet.create({
     marginVertical: 8
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
+    fontSize: 20,
     width: '100%',
     textAlign: 'center',
+    marginBottom: '5%',
   },
   header: {
     fontSize: 32,
     backgroundColor: "#fff"
   },
   box:{
-    backgroundColor: "#f9c2ff",
-    flex: 1,
-    flexDirection: 'row'
+    marginVertical: '3%',
+    backgroundColor: "#D1DCE7",
+    display:'flex',
+    flexDirection: 'row',
+    borderRadius: 10,
+  },
+  'box:last-child':{
+    borderTopEndRadius: 10
+  },
+  'box:first-child':{
+    borderBottomRightRadius: 10
+  },
+  checkbox:{
+    flex:1,
+    maxWidth:'20%',
+    alignItems:'center',
+  },
+  textInBox:{
+    flex:1,
+  },
+  bouton:{
+    marginVertical:'3%',
+    borderRadius:10,
   }
-  
 });
 
 export default FlatListBasics;

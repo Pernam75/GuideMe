@@ -51,11 +51,9 @@ function ChoiceScreen({ route, navigation }) {
 const passingRadius = route.params.enteredRadius
 return (
   <SafeAreaView style={styles.container}>
-    <Text>{passingRadius}</Text>
     <FlatListBasics
       radius = {passingRadius}
       onValidate={(ids : [number]) => {
-        console.log("ids dans App",ids)
         navigation.navigate('Map', {radius : passingRadius, ids: ids})
       }
 
@@ -69,7 +67,6 @@ function MapScreen({ route, navigation }){
   const {radius, ids} = route.params;
   return (
     <SafeAreaView style={styles.container}>
-      <Text>{radius}</Text>
       <Map 
         radius={radius}
         ids={ids} />
