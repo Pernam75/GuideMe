@@ -1,9 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { StyleSheet, Image, SafeAreaView, SectionList } from 'react-native';
+import { StyleSheet, Image, SafeAreaView, SectionList, Button } from 'react-native';
 import { Text, View } from './components/Themed';
 import { RootTabScreenProps } from '../types';
+import Map from './components/Map';
 import Search from './components/Search';
 import FlatListBasics from './components/liste';
 import { NavigationContainer } from '@react-navigation/native';
@@ -23,21 +24,16 @@ export default function App() {
       <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Details" component={DetailsScreen} />
+        <Stack.Screen name="Choice" component={ChoiceScreen} />
+        <Stack.Screen name="Map" component={MapScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
   }
 }
 
-const Item = ({ title }) => (
-<View style={styles.item}>
-  <Text style={styles.title}>{title}</Text>
-</View>
-);
 
 function HomeScreen({ navigation }) {
-const text = "coucou";
 return (
   <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
     <Image
@@ -45,19 +41,36 @@ return (
       source = {require('./assets/images/logo_small.png')}
     />
     <Search onValidate={(val: number) =>{
-      navigation.navigate('Details', {text: val});
+      navigation.navigate('Choice', {enteredRadius: val});
       console.log(val);
       }} />
   </View>
 );
 }
 
-function DetailsScreen({ route }) {
+function ChoiceScreen({ route, navigation }) {
+const passingRadius = route.params.enteredRadius
 return (
   <SafeAreaView style={styles.container}>
-    <Text>{route.params.text}</Text> 
+    <Text>{route.params.enteredRadius}</Text>
+      <Button
+      title="Map"
+      onPress={() =>
+        navigation.navigate('Map', {radius : passingRadius})
+      }
+    />
     <FlatListBasics/>
   </SafeAreaView>
+);
+}
+
+function MapScreen({ route }){
+  const [radius, setRadius] = React.useState(0)
+  return (
+    <View style={styles.container}>
+      {/*<Search onValidate={(val: number) => setRadius(val)} />*/}
+      <Map radius={radius} />
+    </View>
 );
 }
 
