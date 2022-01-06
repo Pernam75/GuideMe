@@ -52,13 +52,14 @@ const passingRadius = route.params.enteredRadius
 return (
   <SafeAreaView style={styles.container}>
     <Text>{passingRadius}</Text>
-      <Button
-      title="Map"
-        onPress={() =>
-        navigation.navigate('Map', {radius : passingRadius})
+    <FlatListBasics
+      radius = {passingRadius}
+      onValidate={(ids : [number]) => {
+        console.log("ids dans App",ids)
+        navigation.navigate('Map', {radius : passingRadius, ids: ids})
       }
-    />
-    <FlatListBasics radius = {passingRadius}/>
+
+    }/>
   </SafeAreaView>
 );
 }

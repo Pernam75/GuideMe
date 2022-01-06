@@ -7,9 +7,15 @@ const { map } = require('mathjs');
 //getMonumentsOrder(48.85684, 2.35009, 3000); // centre de Paris
 
 
-export async function getMonumentsOrder(positionLat, positionLong, radius) {
-  
-  const selectedMonuments = monumentsInRadius(positionLat, positionLong, radius);
+export async function getMonumentsOrder(positionLat, positionLong, radius, ids) {
+  const monumentsInTheRadius = monumentsInRadius(positionLat, positionLong, radius);
+  const selectedMonuments = [];
+  console.log("ids dans time matrix : ",ids)
+  monumentsInTheRadius.forEach(element => {
+    if (element in ids) {
+      selectedMonuments.push(element);
+    }
+  });
   if (selectedMonuments.size === 0){
     return[];
   }

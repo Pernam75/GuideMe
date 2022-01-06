@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, StyleSheet, Text, View, SafeAreaView, SectionList, Alert } from 'react-native';
+import { FlatList, StyleSheet, Text, View, SafeAreaView, SectionList, Alert, Button } from 'react-native';
 import { monumentsInRadius } from './time_matrix';
 import {CheckBox} from 'react-native-elements';
 import { Accuracy } from 'expo-location';
@@ -30,7 +30,6 @@ class FlatListBasics extends React.Component<any, any, any> {
   }
 
   transformData = () => {
-    console.log(this.state.lat, this.state.lon, this.props.enteredRadius);
     const mapData = monumentsInRadius(this.state.lat, this.state.lon, this.props.radius);
     let returningData: [{ id: any, key: String }];
     returningData = [{ id: 0, key: "" }];
@@ -65,7 +64,7 @@ class FlatListBasics extends React.Component<any, any, any> {
 
   toggleChecked = (itemId) => {
     const ids = [...this.state.ids, itemId];
-
+    console.log("ids dans toggle",ids);
     if (this.isChecked(itemId)) {
       this.setState({
         ...this.state,
@@ -79,7 +78,6 @@ class FlatListBasics extends React.Component<any, any, any> {
     }
   };
 
-
   render(){
     return (
       <View style={styles.container}>
@@ -91,6 +89,10 @@ class FlatListBasics extends React.Component<any, any, any> {
           }}
           renderItem={this.renderItem}
         />
+      <Button
+        title="Map"
+        onPress={() => this.props.onValidate(this.state.ids)}
+      />
       </View>
     );
   }
