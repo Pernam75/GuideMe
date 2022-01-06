@@ -1,19 +1,37 @@
 import React from 'react';
-import { FlatList, StyleSheet, Text, View, SafeAreaView, SectionList } from 'react-native';
+import { FlatList, StyleSheet, Text, View, SafeAreaView, SectionList, Alert } from 'react-native';
 import { monumentsInRadius } from './time_matrix';
 import {CheckBox} from 'react-native-elements';
+import { Accuracy } from 'expo-location';
+import * as Location from 'expo-location';
 
 class FlatListBasics extends React.Component<any, any, any> {
   constructor(props: any){
     super(props)
     this.state = {
+      lat: 0,
+      lon: 0,
       data: [],
       ids: []
     }
   }
 
+  componentDidMount() {
+    const getCurrentLocation = async() => {
+      const {status}  = await Location.requestForegroundPermissionsAsync()
+      if (status !== 'granted') {
+        Alert.alert('Activer la localisation', 'Pour profiter de toutes les fonctionnalités de GuideMe, veuillez activer la localisation.')
+        return;
+      }
+      const initialposition = await Location.getCurrentPositionAsync({ accuracy: Accuracy.Low });
+      this.setState({lat: initialposition.coords.latitude, lon: initialposition.coords.longitude});
+    }
+    getCurrentLocation();
+  }
+
   transformData = () => {
-    const mapData = monumentsInRadius(48.85684, 2.35009, 3000);
+    console.log(this.state.lat, this.state.lon, this.props.enteredRadius);
+    const mapData = monumentsInRadius(this.state.lat, this.state.lon, this.props.radius);
     let returningData: [{ id: any, key: String }];
     returningData = [{ id: 0, key: "" }];
     let arrayData = Array.from(mapData.values());

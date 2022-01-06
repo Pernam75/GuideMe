@@ -54,11 +54,11 @@ return (
     <Text>{passingRadius}</Text>
       <Button
       title="Map"
-      onPress={() =>
+        onPress={() =>
         navigation.navigate('Map', {radius : passingRadius})
       }
     />
-    <FlatListBasics/>
+    <FlatListBasics radius = {passingRadius}/>
   </SafeAreaView>
 );
 }
