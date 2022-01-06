@@ -33,9 +33,9 @@ class Map extends React.Component<any, any, any> {
       this.mapRef?.animateToRegion({
         latitude: initialposition.coords.latitude,
         longitude: initialposition.coords.longitude,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421
-      }, 1000)
+        latitudeDelta: (this.props.radius/63710)*2,
+        longitudeDelta: (this.props.radius/63710)*2
+      }, 3000)
     }
     const displayPath = async() => {
       const location = await initToCurrLocation()
