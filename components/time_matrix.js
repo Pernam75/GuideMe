@@ -4,12 +4,22 @@ const adress = require('./monuments.json');
 const fetch = require('node-fetch');
 const { map } = require('mathjs');
 
-getMonumentsOrder(48.769018, 2.361042, 9000);
+const DEFINITION = [3, 5, 6];
 
 
-async function getMonumentsOrder(positionLat, positionLong, radius) {
-  
-  const selectedMonuments = monumentsInRadius(positionLat, positionLong, radius);
+getMonumentsOrder(48.8244723, 2.3715528, 10000, DEFINITION); // ma loc
+
+
+async function getMonumentsOrder(positionLat, positionLong, radius, ids) {
+  const monumentsInTheRadius = monumentsInRadius(positionLat, positionLong, radius);
+  const selectedMonuments = new Map();
+  let j = 0;
+  for (let i = 0; i < monumentsInTheRadius.size; i++) {
+    if (ids.includes(i)) {
+      selectedMonuments.set(j, monumentsInTheRadius.get(i));
+      j++;
+    }
+  }
   if (selectedMonuments.size === 0){
     return[];
   }
@@ -22,8 +32,6 @@ async function getMonumentsOrder(positionLat, positionLong, radius) {
     body += `[${location[0]},${location[1]}]${index < locationsArray.length-1 ? "," : ""}`;
   });
   body += '],"metrics":["distance","duration"]}'
-  //const body = '{"locations":[[2.3637293404211572, 48.78866444019816],[2.345876560484267, 48.84801727953965],[2.336792290124982, 48.86138199771364],[2.33118053722843, 48.87295800734902],[2.3500903111989238, 48.854060768080885], [2.2942992564516613, 48.85914188295359]],"metrics":["distance","duration"]}'
-  //console.log(body)  
   try {
     const res = await fetch(
       'https://api.openrouteservice.org/v2/matrix/foot-walking',
@@ -38,7 +46,7 @@ async function getMonumentsOrder(positionLat, positionLong, radius) {
       }
     );
     const json = await res.json();
-    return findShorterPath(json.durations, selectedMonuments);
+    return findShorterPath(json.durations, selectedMonuments, positionLat, positionLong);
   } catch(e) {
     console.log('Failed request', e)
     return [];
@@ -90,9 +98,9 @@ async function getLocation(name) {
 
 
 
-function findShorterPath(adjMatrix, monumentsMap){
+function findShorterPath(adjMatrix, monumentsMap, positionLat, positionLong){
   let FloydWarshall = require('floyd-warshall');
-  //console.log(adjMatrix);
+  console.log(adjMatrix);
   let distMatrix = new FloydWarshall(adjMatrix).shortestPaths;
   //Getting the shortest path between each point with the Floyd-Warshall algorithm
   
@@ -105,16 +113,11 @@ function findShorterPath(adjMatrix, monumentsMap){
     times.push(getMinimum(distMatrix[currentPlace], path)[0]);
     path.push(getMinimum(distMatrix[currentPlace], path)[1]);
   }
-  console.log("path : "+path);
-  console.log("times : "+times);
-  const result =  [{Nom : "Départ", Longitude : 2.361042, Latitude :  48.769018, time:times[0]}];
-  let i = 1;
+  const result =  [{Nom : "Départ", Longitude : positionLong, Latitude :  positionLat, time:times[0]}];  let i = 1;
   path.slice(1).forEach(element => {
     result.push({Nom : monumentsMap.get(element-1)[0], Longitude : monumentsMap.get(element-1)[1], Latitude : monumentsMap.get(element-1)[2], time:times[i]});
     i++;
   });
-  //console.log(totalTime(times));
-  console.log(result);
   return result;
 }
 
@@ -143,9 +146,8 @@ function totalTime(times) {
   times.forEach(time => {
     total += parseFloat(time);
   });
-  total = total;
-  h = math.floor(total/3600);
-  min = math.floor((total%3600)/60)
+  let h = math.floor(total/3600);
+  let min = math.floor((total%3600)/60)
   if(math.floor(total%60) >= 30){
     min += 1;
   }
