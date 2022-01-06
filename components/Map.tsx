@@ -53,7 +53,9 @@ class Map extends React.Component<any, any, any> {
 
   getPath = async() => {
     let circuit = await getMonumentsOrder(this.state.lat, this.state.lon, this.props.radius);
-    this.computePath(circuit);
+    if(circuit.length > 0){
+      this.computePath(circuit);
+    }
   }
 
   computePath = (circuit: Array<any>) => {
