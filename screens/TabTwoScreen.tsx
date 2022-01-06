@@ -9,7 +9,7 @@ export default function TabTwoScreen() {
 
   return (
     <View style={styles.container}>
-      {/*<Search onValidate={(val: number) => setRadius(val)} />*/}
+      <Search onValidate={(val: number) => setRadius(val)} />
       <Map radius={radius} />
     </View>
   );
