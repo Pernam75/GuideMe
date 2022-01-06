@@ -11,15 +11,7 @@ const DEFINITION = [3, 5, 6];
 
 
 export async function getMonumentsOrder(positionLat, positionLong, radius, ids) {
-  const monumentsInTheRadius = monumentsInRadius(positionLat, positionLong, radius);
-  const selectedMonuments = new Map();
-  let j = 0;
-  for (let i = 0; i < monumentsInTheRadius.size; i++) {
-    if (ids.includes(i)) {
-      selectedMonuments.set(j, monumentsInTheRadius.get(i));
-      j++;
-    }
-  }
+  const selectedMonuments = selectedMonumentsInRadius(positionLat, positionLong, radius, ids);
   if (selectedMonuments.size === 0){
     return[];
   }
@@ -186,4 +178,17 @@ export function monumentsInRadius(positionLat, positionLong, rayon){
       }
     })
     return liste_monuments;
+}
+
+export function selectedMonumentsInRadius(positionLat, positionLong, rayon, ids){
+  const monumentsInTheRadius = monumentsInRadius(positionLat, positionLong, rayon);
+  const selectedMonuments = new Map();
+  let j = 0;
+  for (let i = 0; i < monumentsInTheRadius.size; i++) {
+    if (ids.includes(i)) {
+      selectedMonuments.set(j, monumentsInTheRadius.get(i));
+      j++;
+    }
+  }
+  return selectedMonuments;
 }
