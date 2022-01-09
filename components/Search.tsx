@@ -18,6 +18,7 @@ class Search extends React.Component<any, any, any> {
                 <TextInput style={styles.zoneDeTexte}
                     keyboardType='numeric'
                     placeholder='(En mètres)'
+                    placeholderTextColor={"#0B0CAC"}
                     value={this.state.value}
                     onChangeText={val => this.setState({value: val})}
                     onSubmitEditing={() => this.props.onValidate(parseInt(this.state.value))}
@@ -26,7 +27,7 @@ class Search extends React.Component<any, any, any> {
                 <View style={styles.buttonBox}>
                 <Button 
                     title='Valider'
-                    color='black'
+                    color='#FF5576'
                     onPress={() => this.props.onValidate(parseInt(this.state.value))}
                 />
                 </View>
@@ -41,7 +42,7 @@ const styles = StyleSheet.create({
       width: '100%',
     },
     zoneDeTexte: {
-        borderColor: 'black',
+        borderColor: '#0B0CAC',
         borderWidth:1,
         width: '100%',
         textAlign: 'center',
