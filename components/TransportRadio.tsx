@@ -22,31 +22,32 @@ class TransportRadio extends React.Component<any, any, any> {
                 }}>
                 <RadioButton
                     icon={{
+                        normal: require('../assets/images/icons/walk-unchecked.png'),
+                        checked: require('../assets/images/icons/walk-checked.png')
+                    }}
+                    iconStyle={{maxWidth:'30%', maxHeight:'30%', resizeMode: 'contain'}}
+                    value={"foot-walking"} />
+                <RadioButton
+                    icon={{
                         normal: require('../assets/images/icons/car-unchecked.png'),
-                        checked: require('../assets/images/icons/car-checked.png')
+                        checked: require("../assets/images/icons/car-checked.png")
                     }}
-                    value={"car"} />
+                    iconStyle={{maxWidth:'30%', maxHeight:'30%', resizeMode: 'contain'}}
+                    value={"driving-car"} />
                 <RadioButton
                     icon={{
-                        normal: require('../assets/images/icons/radio-unchecked.png'),
-                        checked: require("../assets/images/icons/radio-checked.png")
+                        normal: require('../assets/images/icons/bike-unchecked.png'),
+                        checked: require("../assets/images/icons/bike-checked.png")
                     }}
-                    style={{ marginLeft: 20 }}
-                    value={2} />
+                    iconStyle={{maxWidth:'30%', maxHeight:'30%', resizeMode: 'contain'}}
+                    value={"cycling-road"} />
                 <RadioButton
                     icon={{
-                        normal: require('../assets/images/icons/radio-unchecked.png'),
-                        checked: require("../assets/images/icons/radio-checked.png")
+                        normal: require('../assets/images/icons/wheelchair-unchecked.png'),
+                        checked: require("../assets/images/icons/wheelchair-checked.png")
                     }}
-                    style={{ marginLeft: 20 }}
-                    value={3} />
-                <RadioButton
-                    icon={{
-                        normal: require('../assets/images/icons/radio-unchecked.png'),
-                        checked: require("../assets/images/icons/radio-checked.png")
-                    }}
-                    style={{ marginLeft: 20 }}
-                    value={4} />
+                    iconStyle={{maxWidth:'30%', maxHeight:'30%', resizeMode: 'contain'}}
+                    value={"wheelchair"} />
                 </RadioGroup>
             </View>
         )
