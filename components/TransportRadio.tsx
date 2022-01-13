@@ -5,17 +5,18 @@ import { RadioButton, RadioGroup } from "react-native-radio-check"
 class TransportRadio extends React.Component<any, any, any> {
     constructor(props) {
         super(props)
-        this.state = { check: true, index: 0 }
+        this.state = { check: true, index: 0, transport: "foot-walking" }
     }
     render() {
         return(
             <View style={{flexDirection:'row'}}>
                 <RadioGroup
-                style={{flexDirection: 'row', alignItems:'center', width:'25%', height:'40%',  marginTop:'10%'}}
-                checkedId={this.state.index}
-                onChecked={(id, value) => {
-                    console.info("Group===", id)
-                    console.info("Value===", value)
+                    style={{flexDirection: 'row', alignItems:'center', width:'25%', height:'40%',  marginTop:'10%'}}
+                    checkedId={this.state.index}
+                    onChecked={(id, value) => {
+                        this.setState({index: id, transport: value})
+                        //console.info("Group===", id)
+                        //console.info("Value===", value)
                 }}>
                 <RadioButton
                     icon={{

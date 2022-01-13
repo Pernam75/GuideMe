@@ -6,7 +6,7 @@ class Search extends React.Component<any, any, any> {
     constructor(props) {
         super(props);
     
-        this.state = {value: null}
+        this.state = {value: null, transport: "foot-walking"}
       }
 
     render(){
@@ -33,7 +33,9 @@ class Search extends React.Component<any, any, any> {
                 />
                 </View>
                 <View style={{width:'80%'}}>
-                    <TransportRadio/>
+                    <TransportRadio
+                        onChecked={() => this.setState({transport: this.props.transport})}
+                    />
                 </View>
             </View>
         )
