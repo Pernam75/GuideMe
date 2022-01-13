@@ -40,7 +40,6 @@ class Search extends React.Component<any, any, any> {
                     <TransportRadio
                         isChecked={(transport :String) => this.setState({transport: transport})}
                     />
-                    <Text>{this.state.transport}</Text>
                 </View>
             </View>
         )
