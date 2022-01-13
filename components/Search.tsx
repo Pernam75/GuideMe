@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, TextInput, Text, Button, StyleSheet } from 'react-native';
+import TransportRadio from './TransportRadio';
 
 class Search extends React.Component<any, any, any> {
     constructor(props) {
@@ -30,6 +31,9 @@ class Search extends React.Component<any, any, any> {
                     color='#FF5576'
                     onPress={() => this.props.onValidate(parseInt(this.state.value))}
                 />
+                </View>
+                <View>
+                    <TransportRadio/>
                 </View>
             </View>
         )
