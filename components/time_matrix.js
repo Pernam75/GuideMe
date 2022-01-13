@@ -2,7 +2,7 @@ const math = require('mathjs');
 const XMLHttpRequest = require('xhr2');
 const adress = require('./monuments.json');
 //const fetch = require('node-fetch');
-const { map } = require('mathjs');
+const { map, round } = require('mathjs');
 
 const DEFINITION = [3, 5, 6];
 
@@ -45,6 +45,68 @@ export async function getMonumentsOrder(positionLat, positionLong, radius, ids) 
   }
   
 }
+
+export async function getPathTimeAndDistance(positionLat, positionLong, radius, ids) {
+  const selectedMonuments = selectedMonumentsInRadius(positionLat, positionLong, radius, ids);
+  if (selectedMonuments.size === 0){
+    return[];
+  }
+  let locationsArray = [[positionLong, positionLat]]
+  selectedMonuments.forEach((value, key) => {
+    locationsArray.push([value[1], value[2]])
+  });
+  let body = '{"locations":['
+  locationsArray.forEach((location, index) => {
+    body += `[${location[0]},${location[1]}]${index < locationsArray.length-1 ? "," : ""}`;
+  });
+  body += '],"metrics":["distance","duration"]}'
+  try {
+    const res = await fetch(
+      'https://api.openrouteservice.org/v2/matrix/foot-walking',
+      {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8',
+          'Content-Type': 'application/json',
+          'Authorization': '5b3ce3597851110001cf62488e507e8f47604f66ae8ba7a411f9f8bd',
+        },
+        body
+      }
+    );
+    const json = await res.json();
+    return findShorterPath2(json.durations, json.distances, selectedMonuments, positionLat, positionLong);
+  } catch(e) {
+    console.log('Failed request', e)
+    return [];
+  } 
+}
+
+function findShorterPath2(adjMatrix, distanceMatrix, monumentsMap, positionLat, positionLong){
+  let FloydWarshall = require('floyd-warshall');
+  let distMatrix = new FloydWarshall(adjMatrix).shortestPaths;
+  //Getting the shortest path between each point with the Floyd-Warshall algorithm
+  
+  //Now we're looking for the shortest path passing through all points once
+  let times = [0];
+  let path = [0];
+  let currentPlace = 0;
+  while (path.length < distMatrix.length) {
+    currentPlace = path.slice(-1);
+    times.push(getMinimum(distMatrix[currentPlace], path)[0]);
+    path.push(getMinimum(distMatrix[currentPlace], path)[1]);
+  }
+  const result =  [{Nom : "Départ", Longitude : positionLong, Latitude :  positionLat, time:times[0]}];  let i = 1;
+  path.slice(1).forEach(element => {
+    result.push({Nom : monumentsMap.get(element-1)[0], Longitude : monumentsMap.get(element-1)[1], Latitude : monumentsMap.get(element-1)[2], time:times[i]});
+    i++;
+  });
+  console.log("js "+totalTime(result))
+  return [totalTime(result), Math.round(0.000259*totalDistance(result, distMatrix, distanceMatrix), 3)];
+}
+
+
+
+
 
 
 function getMonuments() {
@@ -132,10 +194,10 @@ function nin (list, element){
   }
 }
 
-export function totalTime(times) {
+function totalTime(results) {
   let total = 0.0;
-  times.forEach(time => {
-    total += parseFloat(time);
+  results.forEach(result => {
+    total += parseFloat(result.time);
   });
   let h = math.floor(total/3600);
   let min = math.floor((total%3600)/60)
@@ -145,6 +207,20 @@ export function totalTime(times) {
   return h+" heures et "+min+" minutes";
 }
 
+function totalDistance(results, timeMatrix, distMatrix) {
+  let total = 0.0;
+  console.log(distMatrix)
+  for (let i = 0; i < timeMatrix.length; i++) {
+    for (let j = 0; j < timeMatrix.length; j++) {
+      for (let k = 0; k < results.length; k++) {
+        if(results[k].time === timeMatrix[i][j] && i<j){
+          total+= parseFloat(distMatrix[i][j]);
+        }
+      }
+    }
+  }
+  return total;
+}
 
 // code Kais
 /* VARIABLES */

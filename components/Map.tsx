@@ -1,10 +1,11 @@
 import React from 'react';
-import { Alert } from 'react-native';
+import { Alert, Text, StyleSheet } from 'react-native';
 import MapView, { Circle, Polyline, Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { Accuracy } from 'expo-location';
 import * as Location from 'expo-location';
 import Openrouteservice from 'openrouteservice-js';
-import {selectedMonumentsInRadius, getMonumentsOrder} from './time_matrix';
+import {selectedMonumentsInRadius, getMonumentsOrder, getPathTimeAndDistance} from './time_matrix';
+import { View } from './Themed';
 
 class Map extends React.Component<any, any, any> {
   mapRef: any;
@@ -17,11 +18,12 @@ class Map extends React.Component<any, any, any> {
       lon: 0,
       pathMarker: [],
       path: [],
+      totalTime: 0.0,
+      carbonBilan: 0.0
     }
   }
 
   componentDidMount() {
-    console.log("didmount", this.props.transport)
     const initToCurrLocation = async() => {
       const {status}  = await Location.requestForegroundPermissionsAsync()
       if (status !== 'granted') {
@@ -37,6 +39,7 @@ class Map extends React.Component<any, any, any> {
         longitudeDelta: (this.props.radius/63710)*2
       }, 3000)
     }
+
     const displayPath = async() => {
       const location = await initToCurrLocation()
       let finalmonument = selectedMonumentsInRadius(this.state.lat, this.state.lon, this.props.radius, this.props.ids)
@@ -56,11 +59,14 @@ class Map extends React.Component<any, any, any> {
     if(circuit.length > 0){
       this.computePath(circuit);
     }
+    const result = await getPathTimeAndDistance(this.state.lat, this.state.lon, this.props.radius, this.props.ids);
+    this.setState({
+      totalTime: result[0],
+      carbonBilan: result[1]
+    })
   }
 
   computePath = (circuit: Array<any>) => {
-
-    console.log(this.props.transport, typeof this.props.transport)
     let orsDirections = new Openrouteservice.Directions({ api_key: "5b3ce3597851110001cf62488e507e8f47604f66ae8ba7a411f9f8bd"});
     orsDirections.calculate({
       coordinates: circuit.map(point => [point.Longitude, point.Latitude]),
@@ -79,15 +85,14 @@ class Map extends React.Component<any, any, any> {
     .catch((err: any) => console.error(err));
   }
 
-
   render() {
     return (
-      <MapView
-        ref={ref => { this.mapRef = ref }}
-        style={{ width: "100%", height: "70%", flex:2 }}
-        provider={PROVIDER_GOOGLE}
-        showsUserLocation>
-        {this.props.radius > 0 && (
+        <MapView
+          ref={ref => { this.mapRef = ref }}
+          style={{ width: "100%", height: "70%", flex:2 }}
+          provider={PROVIDER_GOOGLE}
+          showsUserLocation>
+          {this.props.radius > 0 && (
           <Circle
             fillColor="rgba(255, 0, 0, 0.15)"
             radius={this.props.radius}
@@ -115,7 +120,9 @@ class Map extends React.Component<any, any, any> {
           title={'Depart'}
           pinColor={'#0B0CAC'}
         />
+        <Text style= {{backgroundColor: 'white', textAlign: 'center',}}>Vous avez économisé/émis {this.state.carbonBilan}kg de CO2</Text>
       </MapView>
+
     );
   }
 }
