@@ -32,7 +32,7 @@ class Search extends React.Component<any, any, any> {
                     onPress={() => this.props.onValidate(parseInt(this.state.value))}
                 />
                 </View>
-                <View>
+                <View >
                     <TransportRadio/>
                 </View>
             </View>
@@ -41,7 +41,7 @@ class Search extends React.Component<any, any, any> {
 }
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
+      flexDirection: 'column',
       alignItems: 'center',
       width: '100%',
     },
