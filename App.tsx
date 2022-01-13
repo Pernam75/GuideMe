@@ -49,13 +49,14 @@ return (
 }
 
 function ChoiceScreen({ route, navigation }) {
-const {passingRadius, transportway} = route.params
+const passingRadius = route.params.enteredRadius
+const transportway = route.params.transport
 return (
   <SafeAreaView style={styles.container}>
     <FlatListBasics
       radius = {passingRadius}
       onValidate={(ids : [number]) => {
-        navigation.navigate('Map', {radius : passingRadius, ids: ids, transportway : transportway})
+        navigation.navigate('Map', {radius : passingRadius, ids: ids, transport: transportway})
       }
 
     }/>
