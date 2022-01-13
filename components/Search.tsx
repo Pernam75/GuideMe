@@ -6,8 +6,12 @@ class Search extends React.Component<any, any, any> {
     constructor(props) {
         super(props);
     
-        this.state = {value: null, transport: "foot-walking"}
+        this.state = {
+            value: null, 
+            transport: "foot-walking"
+        }
       }
+    
 
     render(){
         return(
@@ -29,13 +33,14 @@ class Search extends React.Component<any, any, any> {
                 <Button 
                     title='Valider'
                     color='#FF5576'
-                    onPress={() => this.props.onValidate(parseInt(this.state.value))}
+                    onPress={() => this.props.onValidate(parseInt(this.state.value), this.state.transport)}
                 />
                 </View>
                 <View style={{width:'80%'}}>
                     <TransportRadio
-                        onChecked={() => this.setState({transport: this.props.transport})}
+                        isChecked={transport => this.setState({transport: transport})}
                     />
+                    <Text>{this.state.transport}</Text>
                 </View>
             </View>
         )

@@ -41,21 +41,21 @@ return (
       style={styles.imageAccueil}
       source = {require('./assets/images/logo_small.png')}
     />
-    <Search onValidate={(val: number) =>{
-      navigation.navigate('Choice', {enteredRadius: val});
+    <Search onValidate={(val: number, transport: String) =>{
+      navigation.navigate('Choice', {enteredRadius: val, transport: transport});
       }} />
   </View>
 );
 }
 
 function ChoiceScreen({ route, navigation }) {
-const passingRadius = route.params.enteredRadius
+const {passingRadius, transportway} = route.params
 return (
   <SafeAreaView style={styles.container}>
     <FlatListBasics
       radius = {passingRadius}
       onValidate={(ids : [number]) => {
-        navigation.navigate('Map', {radius : passingRadius, ids: ids})
+        navigation.navigate('Map', {radius : passingRadius, ids: ids, transportway : transportway})
       }
 
     }/>

@@ -14,7 +14,8 @@ class TransportRadio extends React.Component<any, any, any> {
                     style={{flexDirection: 'row', alignItems:'center', width:'25%', height:'40%',  marginTop:'10%'}}
                     checkedId={this.state.index}
                     onChecked={(id, value) => {
-                        this.setState({index: id, transport: value})
+                        this.setState({index: id})
+                        this.props.isChecked(value)
                         //console.info("Group===", id)
                         //console.info("Value===", value)
                 }}>
