@@ -32,7 +32,7 @@ class Search extends React.Component<any, any, any> {
                     onPress={() => this.props.onValidate(parseInt(this.state.value))}
                 />
                 </View>
-                <View >
+                <View style={{width:'80%'}}>
                     <TransportRadio/>
                 </View>
             </View>

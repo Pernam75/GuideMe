@@ -9,9 +9,9 @@ class TransportRadio extends React.Component<any, any, any> {
     }
     render() {
         return(
-            <View>
+            <View style={{flexDirection:'row'}}>
                 <RadioGroup
-                style={{flexDirection: 'row', alignItems:'center', maxWidth:'50%', maxHeight:'60%',  marginTop:'10%'}}
+                style={{flexDirection: 'row', alignItems:'center', width:'25%', height:'40%',  marginTop:'10%'}}
                 checkedId={this.state.index}
                 onChecked={(id, value) => {
                     console.info("Group===", id)
@@ -22,28 +22,28 @@ class TransportRadio extends React.Component<any, any, any> {
                         normal: require('../assets/images/icons/walk-unchecked.png'),
                         checked: require('../assets/images/icons/walk-checked.png')
                     }}
-                    iconStyle={{flex: 1, maxWidth:'70%', maxHeight:'70%', resizeMode: 'contain'}}
+                    iconStyle={{flex: 1, maxWidth:'100%', maxHeight:'100%', resizeMode: 'contain'}}
                     value={"foot-walking"} />
                 <RadioButton
                     icon={{
                         normal: require('../assets/images/icons/car-unchecked.png'),
                         checked: require("../assets/images/icons/car-checked.png")
                     }}
-                    iconStyle={{flex: 1,maxWidth:'70%', maxHeight:'70%', resizeMode: 'contain'}}
+                    iconStyle={{flex: 1, maxWidth:'100%', maxHeight:'100%', resizeMode: 'contain'}}
                     value={"driving-car"} />
                 <RadioButton
                     icon={{
                         normal: require('../assets/images/icons/bike-unchecked.png'),
                         checked: require("../assets/images/icons/bike-checked.png")
                     }}
-                    iconStyle={{flex: 1,maxWidth:'70%', maxHeight:'70%', resizeMode: 'contain'}} 
+                    iconStyle={{flex: 1, maxWidth:'100%', maxHeight:'100%', resizeMode: 'contain'}}
                     value={"cycling-road"} />
                 <RadioButton
                     icon={{
                         normal: require('../assets/images/icons/wheelchair-unchecked.png'),
                         checked: require('../assets/images/icons/wheelchair-checked.png')
                     }}
-                    iconStyle={{flex: 1,maxWidth:'70%', maxHeight:'70%', resizeMode: 'contain'}} 
+                    iconStyle={{flex: 1, maxWidth:'100%', maxHeight:'100%', resizeMode: 'contain'}}
                     value={"wheelchair"} />
                 </RadioGroup>
             </View>
