@@ -92,7 +92,6 @@ async function getLocation(name) {
 
 function findShorterPath(adjMatrix, monumentsMap, positionLat, positionLong){
   let FloydWarshall = require('floyd-warshall');
-  console.log(adjMatrix);
   let distMatrix = new FloydWarshall(adjMatrix).shortestPaths;
   //Getting the shortest path between each point with the Floyd-Warshall algorithm
   

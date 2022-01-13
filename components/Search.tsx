@@ -26,7 +26,7 @@ class Search extends React.Component<any, any, any> {
                     placeholderTextColor={"#0B0CAC"}
                     value={this.state.value}
                     onChangeText={val => this.setState({value: val})}
-                    onSubmitEditing={() => this.props.onValidate(parseInt(this.state.value))}
+                    onSubmitEditing={() => this.props.onValidate(parseInt(this.state.value), this.state.transport)}
                 />
                 </View>
                 <View style={styles.buttonBox}>
@@ -38,7 +38,7 @@ class Search extends React.Component<any, any, any> {
                 </View>
                 <View style={{width:'80%'}}>
                     <TransportRadio
-                        isChecked={transport => this.setState({transport: transport})}
+                        isChecked={(transport :String) => this.setState({transport: transport})}
                     />
                     <Text>{this.state.transport}</Text>
                 </View>

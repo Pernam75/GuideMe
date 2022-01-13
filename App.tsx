@@ -66,12 +66,14 @@ return (
 
 function MapScreen({ route, navigation }){
   const [radius1, setRadius] = React.useState(0)
-  const {radius, ids} = route.params;
+  const {radius, ids, transport} = route.params;
   return (
     <SafeAreaView style={styles.container}>
       <Map 
         radius={radius}
-        ids={ids} />
+        ids={ids}
+        transport={transport}
+        />
     </SafeAreaView>
 );
 }

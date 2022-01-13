@@ -69,7 +69,6 @@ class FlatListBasics extends React.Component<any, any, any> {
 
   toggleChecked = (itemId) => {
     const ids = [...this.state.ids, itemId];
-    console.log("ids dans toggle",ids);
     if (this.isChecked(itemId)) {
       this.setState({
         ...this.state,

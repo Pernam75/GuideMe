@@ -7,6 +7,28 @@ class TransportRadio extends React.Component<any, any, any> {
         super(props)
         this.state = { check: true, index: 0, transport: "foot-walking" }
     }
+
+    toggleChecked = () =>{
+        switch (this.state.index) {
+            case 0:
+                this.setState({transport: "foot-walking"});
+                break;
+            case 1:
+                this.setState({transport: "driving-car"});
+                break;
+            case 2:
+                this.setState({transport: "cycling-road"});
+                break;
+            case 3:
+                this.setState({transport: "wheelchair"});
+                break;
+            default:
+                this.setState({transport: "foot-walking"});
+                break;
+        }
+        console.log(this.state.transport)
+    }
+
     render() {
         return(
             <View style={{flexDirection:'row'}}>
@@ -15,6 +37,7 @@ class TransportRadio extends React.Component<any, any, any> {
                     checkedId={this.state.index}
                     onChecked={(id, value) => {
                         this.setState({index: id})
+                        this.toggleChecked()
                         this.props.isChecked(value)
                         //console.info("Group===", id)
                         //console.info("Value===", value)
@@ -51,6 +74,8 @@ class TransportRadio extends React.Component<any, any, any> {
             </View>
         )
     }
+
+    
 }
 
 export default TransportRadio;
