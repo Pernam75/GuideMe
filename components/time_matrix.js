@@ -4,7 +4,7 @@ const adress = require('./monuments.json');
 const fetch = require('node-fetch');
 const { map } = require('mathjs');
 
-const DEFINITION = [3, 5, 6];
+const DEFINITION = [3, 5, 6, 8, 10];
 
 
 getMonumentsOrder(48.8244723, 2.3715528, 10000, DEFINITION); // ma loc
@@ -46,7 +46,7 @@ async function getMonumentsOrder(positionLat, positionLong, radius, ids) {
       }
     );
     const json = await res.json();
-    return findShorterPath(json.durations, selectedMonuments, positionLat, positionLong);
+    return findShorterPath(json.durations, json.distances, selectedMonuments, positionLat, positionLong);
   } catch(e) {
     console.log('Failed request', e)
     return [];
@@ -98,9 +98,9 @@ async function getLocation(name) {
 
 
 
-function findShorterPath(adjMatrix, monumentsMap, positionLat, positionLong){
+function findShorterPath(adjMatrix, adjMatrixDistance, monumentsMap, positionLat, positionLong){
   let FloydWarshall = require('floyd-warshall');
-  console.log(adjMatrix);
+  //console.log(adjMatrix);
   let distMatrix = new FloydWarshall(adjMatrix).shortestPaths;
   //Getting the shortest path between each point with the Floyd-Warshall algorithm
   
@@ -118,6 +118,7 @@ function findShorterPath(adjMatrix, monumentsMap, positionLat, positionLong){
     result.push({Nom : monumentsMap.get(element-1)[0], Longitude : monumentsMap.get(element-1)[1], Latitude : monumentsMap.get(element-1)[2], time:times[i]});
     i++;
   });
+  console.log("time : "+totalTime(result)+"\n distance"+totalDistance(result, distMatrix, adjMatrixDistance))
   return result;
 }
 
@@ -141,10 +142,10 @@ function nin (list, element){
   }
 }
 
-function totalTime(times) {
+function totalTime(results) {
   let total = 0.0;
-  times.forEach(time => {
-    total += parseFloat(time);
+  results.forEach(result => {
+    total += parseFloat(result.time);
   });
   let h = math.floor(total/3600);
   let min = math.floor((total%3600)/60)
@@ -152,6 +153,22 @@ function totalTime(times) {
     min += 1;
   }
   return h+" heures et "+min+" minutes";
+}
+
+function totalDistance(results, timeMatrix, distMatrix) {
+  let total = 0.0;
+  console.log(distMatrix)
+  for (let i = 0; i < timeMatrix.length; i++) {
+    for (let j = 0; j < timeMatrix.length; j++) {
+      for (let k = 0; k < results.length; k++) {
+        if(results[k].time === timeMatrix[i][j] && i<j){
+          total+= parseFloat(distMatrix[i][j]);
+          console.log(i, j, k)
+        }
+      }
+    }
+  }
+  return total;
 }
 
 
