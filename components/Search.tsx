@@ -33,7 +33,7 @@ class Search extends React.Component<any, any, any> {
                 <Button 
                     title='Valider'
                     color='#FF5576'
-                    onPress={() => this.props.onValidate(parseInt(this.state.value), this.state.transport)}
+                    onPress={() => this.props.onValidate(parseInt(this.state.value))}
                 />
                 </View>
                 <View style={{width:'80%'}}>
