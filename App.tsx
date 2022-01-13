@@ -53,6 +53,7 @@ const passingRadius = route.params.enteredRadius
 const transportway = route.params.transport
 return (
   <SafeAreaView style={styles.container}>
+    
     <FlatListBasics
       radius = {passingRadius}
       onValidate={(ids : [number]) => {
@@ -67,6 +68,7 @@ return (
 function MapScreen({ route, navigation }){
   const [radius1, setRadius] = React.useState(0)
   const {radius, ids, transport} = route.params;
+  
   return (
     <SafeAreaView style={styles.container}>
       <Map 

@@ -59,13 +59,12 @@ class Map extends React.Component<any, any, any> {
   }
 
   computePath = (circuit: Array<any>) => {
-    const marche = this.props.transport
 
     console.log(this.props.transport, typeof this.props.transport)
     let orsDirections = new Openrouteservice.Directions({ api_key: "5b3ce3597851110001cf62488e507e8f47604f66ae8ba7a411f9f8bd"});
     orsDirections.calculate({
       coordinates: circuit.map(point => [point.Longitude, point.Latitude]),
-      profile: marche,
+      profile: "foot-walking",
       preference: 'shortest',
       // extra_info: ["waytype", "steepness"],
       format: "geojson",
