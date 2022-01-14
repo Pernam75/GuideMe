@@ -100,7 +100,6 @@ function findShorterPath2(adjMatrix, distanceMatrix, monumentsMap, positionLat, 
     result.push({Nom : monumentsMap.get(element-1)[0], Longitude : monumentsMap.get(element-1)[1], Latitude : monumentsMap.get(element-1)[2], time:times[i]});
     i++;
   });
-  console.log("js "+totalTime(result))
   return [totalTime(result), Math.round(0.000259*totalDistance(result, distMatrix, distanceMatrix), 3)];
 }
 
@@ -209,7 +208,6 @@ function totalTime(results) {
 
 function totalDistance(results, timeMatrix, distMatrix) {
   let total = 0.0;
-  console.log(distMatrix)
   for (let i = 0; i < timeMatrix.length; i++) {
     for (let j = 0; j < timeMatrix.length; j++) {
       for (let k = 0; k < results.length; k++) {

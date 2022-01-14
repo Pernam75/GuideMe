@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, TextInput, Text, Button, StyleSheet } from 'react-native';
 import TransportRadio from './TransportRadio';
-
+import { Keyboard } from 'react-native'
 class Search extends React.Component<any, any, any> {
     constructor(props) {
         super(props);
@@ -20,7 +20,7 @@ class Search extends React.Component<any, any, any> {
                     <Text style={styles.textStyle}>Dans quel rayon souhaitez vous vous déplacer ?</Text>
                 </View>
                 <View style={styles.textBox}>
-                <TextInput style={styles.zoneDeTexte}
+                <TextInput showSoftInputOnFocus = {false} style={styles.zoneDeTexte}
                     keyboardType='numeric'
                     placeholder='(En mètres)'
                     placeholderTextColor={"#0B0CAC"}

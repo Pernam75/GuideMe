@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { StyleSheet, Image, SafeAreaView, SectionList, Button } from 'react-native';
+import { StyleSheet, Image, SafeAreaView, LogBox } from 'react-native';
 import { Text, View } from './components/Themed';
 import { RootTabScreenProps } from '../types';
 import Map from './components/Map';
@@ -13,7 +13,7 @@ import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import TransportRadio from './components/TransportRadio';
 import Navigation from './navigation';
-
+LogBox.ignoreAllLogs();
 export default function App() {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
