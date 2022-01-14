@@ -1,7 +1,14 @@
 import React from 'react'
 import { View, TextInput, Text, Button, StyleSheet } from 'react-native';
 import TransportRadio from './TransportRadio';
-import { Keyboard } from 'react-native'
+import { Keyboard,  TouchableWithoutFeedback  } from 'react-native'
+
+const DismissKeyboard = ({ children }) => (
+<TouchableWithoutFeedback 
+onPress={() => Keyboard.dismiss()}> {children}
+</TouchableWithoutFeedback>
+);
+
 class Search extends React.Component<any, any, any> {
     constructor(props) {
         super(props);
@@ -15,33 +22,37 @@ class Search extends React.Component<any, any, any> {
 
     render(){
         return(
-            <View style={styles.container}>
-                <View style={styles.textBox}>
-                    <Text style={styles.textStyle}>Dans quel rayon souhaitez vous vous déplacer ?</Text>
-                </View>
-                <View style={styles.textBox}>
-                <TextInput showSoftInputOnFocus = {false} style={styles.zoneDeTexte}
-                    keyboardType='numeric'
-                    placeholder='(En mètres)'
-                    placeholderTextColor={"#0B0CAC"}
-                    value={this.state.value}
-                    onChangeText={val => this.setState({value: val})}
-                    onSubmitEditing={() => this.props.onValidate(parseInt(this.state.value), this.state.transport)}
-                />
-                </View>
-                <View style={styles.buttonBox}>
-                <Button 
-                    title='Valider'
-                    color='#FF5576'
-                    onPress={() => this.props.onValidate(parseInt(this.state.value))}
-                />
-                </View>
-                <View style={{width:'80%'}}>
-                    <TransportRadio
-                        isChecked={(transport :String) => this.setState({transport: transport})}
+            <TouchableWithoutFeedback   onPress={Keyboard.dismiss} 
+                                        accessible={false}>
+                <View style={styles.container}>
+                    <View style={styles.textBox}>
+                        <Text style={styles.textStyle}>Dans quel rayon souhaitez vous vous déplacer ?</Text>
+                    </View>
+                    <View style={styles.textBox}>
+                    <TextInput showSoftInputOnFocus = {false} style={styles.zoneDeTexte}
+                        keyboardType='numeric'
+                        placeholder='(En mètres)'
+                        placeholderTextColor={"#0B0CAC"}
+                        value={this.state.value}
+                        onChangeText={val => this.setState({value: val})}
+                        onSubmitEditing={() => this.props.onValidate(parseInt(this.state.value), this.state.transport)}
                     />
+                    </View>
+                    <View style={styles.buttonBox}>
+                    <Button 
+                        title='Valider'
+                        color='#FF5576'
+                        onPress={() => this.props.onValidate(parseInt(this.state.value))}
+                    />
+                    </View>
+                    <View style={{width:'80%'}}>
+                        <TransportRadio
+                            isChecked={(transport :String) => this.setState({transport: transport})}
+                        />
+                    </View>
                 </View>
-            </View>
+            </TouchableWithoutFeedback>
+
         )
     }
 }
