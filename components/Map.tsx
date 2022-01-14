@@ -94,7 +94,7 @@ class Map extends React.Component<any, any, any> {
           showsUserLocation>
           {this.props.radius > 0 && (
           <Circle
-            fillColor="rgba(255, 0, 0, 0.15)"
+            fillColor="red"
             radius={this.props.radius}
             center={{latitude: this.state.lat, longitude: this.state.lon}}
           />
